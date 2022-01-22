@@ -10,3 +10,5 @@ its description, the members of the team and the technology to be used </br>
 (look at the details in the grading scheme attached).
  </br>
  
+MERN’ but with firebase </br>
+MongoDB </br>
