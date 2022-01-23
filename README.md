@@ -19,6 +19,6 @@ Julian Lussier/TheDude957 : Scrum master </br>
 # TECHNOLOGIES
  <b>Languages :</b> </br> 
     Javascript using REACT framework </br>
- <b>Products used:</b> 
+ <b>Products used:</b> </br>
     Firebase </br>
     Stripe </br>
