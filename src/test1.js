@@ -1,3 +1,4 @@
+import React from 'react';
 import logo from './Images/Group_A.png';
 function Test1() {
     return (
