@@ -13,7 +13,6 @@ function App() {
         <Route path="/test2" element = {<Test2/>}/>
       </Routes>
 
-
     </Router>
     </>
   );
