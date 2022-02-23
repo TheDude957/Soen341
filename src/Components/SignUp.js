@@ -7,8 +7,36 @@ import Typography from "@mui/material/Typography";
 import MailIcon from "@mui/icons-material/Mail";
 import LockIcon from "@mui/icons-material/Lock";
 import InputAdornment from "@mui/material/InputAdornment";
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import FormHelperText from '@mui/material/FormHelperText';
 
 const SignUp = () =>  {
+    const [firstname, setFirstName] = React.useState('');
+    const [lastname, setLastName] = React.useState('');
+    const [email, setEmail] = React.useState('');
+    const [password, setPassword] = React.useState('');
+    const [user, setUser] = React.useState('');
+
+    const handleChangeFN = (event) => {
+        setFirstName(event.target.value);
+    };
+    const handleChangeLN = (event) => {
+        setLastName(event.target.value);
+    };
+    const handleChangeE = (event) => {
+        setEmail(event.target.value);
+    };
+    const handleChangeP = (event) => {
+        setPassword(event.target.value);
+    };
+    const handleChangeU = (event) => {
+        setUser(event.target.value);
+    };
+
     return (
         <Grid>
         <Paper
@@ -28,6 +56,8 @@ const SignUp = () =>  {
                 fullWidth
                 required
                 style={{ paddingBottom: 10 }}
+                value={firstname}
+                onChange={handleChangeFN}
             />
                 
             <TextField 
@@ -39,17 +69,21 @@ const SignUp = () =>  {
                 fullWidth
                 required
                 style={{ paddingBottom: 10 }}
+                value={lastname}
+                onChange={handleChangeLN}
             />
             
             <TextField 
                 id="email" 
                 label="Email" 
-                type="text"
+                type="email"
                 placeholder="Email"
                 variant="outlined"
                 fullWidth
                 required
                 style={{ paddingBottom: 10 }}
+                value={email}
+                onChange={handleChangeE}
                 InputProps={{
                     startAdornment: (
                         <InputAdornment position="start">
@@ -61,13 +95,15 @@ const SignUp = () =>  {
 
             <TextField 
                 id="password" 
-                type="text" 
+                type="password" 
                 variant="outlined" 
                 label="Password" 
                 placeholder="Password"
                 fullWidth
                 required
                 style={{ paddingBottom: 10 }}
+                value={password}
+                onChange={handleChangeP}
                 InputProps={{
                     startAdornment: (
                         <InputAdornment position="start">
@@ -78,7 +114,7 @@ const SignUp = () =>  {
             />
 
             <TextField 
-                type="text" 
+                type="password" 
                 variant="outlined" 
                 label="Confirm Password" 
                 placeholder="Confirm Passowrd"
@@ -93,6 +129,25 @@ const SignUp = () =>  {
                     ),
                 }}
             />
+            
+            <Box sx={{ minWidth: 120 }}>
+                <FormControl required sx={{ m: 1, minWidth: 120 }}>
+                    <InputLabel id="user-type">User</InputLabel>
+                    <Select
+                    id="required-user-type"
+                    value={user}
+                    label="User"
+                    required
+                    onChange={handleChangeU}
+                    >
+                    <MenuItem value={10}>Buyer</MenuItem>
+                    <MenuItem value={20}>Seller</MenuItem>
+                    <MenuItem value={30}>Admin</MenuItem>
+                    </Select>
+                    <FormHelperText>Required</FormHelperText>
+                </FormControl>
+            </Box>
+
             <Button 
                 type="submit"
                 color="primary" 
@@ -101,13 +156,13 @@ const SignUp = () =>  {
             >
                 Create Account
             </Button>
-        <Grid align="center">
-            <Typography>
-                <Link to="/LoginPage">Already have an account ?</Link>
-            </Typography>
+            <Grid align="center">
+                <Typography>
+                    <Link to="/LoginPage">Already have an account ?</Link>
+                </Typography>
+            </Grid>
+        </Paper>
         </Grid>
-      </Paper>
-    </Grid>
     )
 }
 
