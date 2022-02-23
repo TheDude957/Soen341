@@ -27,3 +27,16 @@ export const SignOutUser = () => {
       });
   });
 };
+
+export const SignUpUser = (user) => {
+  return new Promise(function (resolve, reject) {
+    firebase
+      .database()
+      .ref(user.type)
+      .push(user)
+      .then(() => {
+        resolve("Student added");
+      })
+      .catch((error) => reject(error));
+  });
+};
