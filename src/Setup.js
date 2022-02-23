@@ -10,6 +10,7 @@ import "firebase/compat/database";
 const firebaseConfig = {
   apiKey: "AIzaSyCTe5i6NnFoEIoxaxosnNcQOhlNWQQ6a5U",
   authDomain: "soen341webstore-5485f.firebaseapp.com",
+  databaseURL: "https://soen341webstore-5485f-default-rtdb.firebaseio.com",
   projectId: "soen341webstore-5485f",
   storageBucket: "soen341webstore-5485f.appspot.com",
   messagingSenderId: "237531517187",
@@ -22,4 +23,4 @@ if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
 
-export { firebase };
+export {firebase};
