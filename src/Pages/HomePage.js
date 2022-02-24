@@ -8,10 +8,11 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
 
-function HomePage(){
+function HomePage(props){
 return(
 
     <>
+    
     <Products/>
     </>
 );
