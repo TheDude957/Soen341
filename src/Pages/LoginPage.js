@@ -68,7 +68,7 @@ const LoginPage = () => {
             <Link href="#">Forgot password</Link>
           </Typography>
           <Typography>
-            <Link href="#">New account</Link>
+            <Link href="#/Components/SignUp">New account</Link>
           </Typography>
         </Grid>
       </Paper>
