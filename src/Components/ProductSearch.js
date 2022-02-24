@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import "./ProductSearch.css";
+import "../CSS/ProductSearch.css";
 
 function ProductSearch(props){
 
