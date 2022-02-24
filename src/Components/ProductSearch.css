@@ -1,0 +1,15 @@
+.searchBar {
+    margin-top: 50px;
+    display: flex;
+}
+
+.searchEntry{
+    background-color: white;
+    border: 0;
+    border-radius: 2px;
+    border-top-right-radius: 0px;
+    font-size: 18px;
+    padding: 15px;
+    height: 30px;
+    width: 300px;
+}
