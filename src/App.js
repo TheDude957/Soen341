@@ -6,6 +6,7 @@ import Navbar from "./Components/Navbar";
 import LoginPage from "./Pages/LoginPage";
 import Footer from "./Components/Footer";
 import Cart from "./Components/Cart";
+import ProductSearch from "./Components/ProductSearch";
 
 
 import React from "react";
@@ -14,6 +15,7 @@ function App() {
     <>
       <Router>
         <Navbar />
+        <ProductSearch />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/test2" element={<Test2 />} />
