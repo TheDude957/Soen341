@@ -26,7 +26,7 @@ The next points are the steps to follow in order to ensure a smooth experience w
 
 # TESTS
 
-You can access the most up to date acceptance tests written for our application [here](https://github.com/TheDude957/team_name-soen341project2022#:~:text=for%20our%20application-,here,-.).
+You can access the most up to date acceptance tests written for our application [here](https://github.com/TheDude957/team_name-soen341project2022/wiki/Acceptance-Testing).
 
 # TEAM MEMBERS
 
