@@ -1,4 +1,5 @@
 import Products from '../Components/Products';
+import ProductSearch from "../Components/ProductSearch"
 import * as React from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -12,7 +13,7 @@ function HomePage(props){
 return(
 
     <>
-    
+    <ProductSearch/>
     <Products/>
     </>
 );
