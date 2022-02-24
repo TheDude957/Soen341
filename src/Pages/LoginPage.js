@@ -9,6 +9,7 @@ import LockIcon from "@mui/icons-material/Lock";
 import InputAdornment from "@mui/material/InputAdornment";
 import React, { useState } from "react";
 import { SignInUser } from "../firebaseService";
+import SignUp from "../Components/SignUp";
 
 
 const LoginPage = () => {
@@ -20,7 +21,7 @@ const LoginPage = () => {
   const signIn = () => {
     SignInUser(email, password)
       .then((data) => {
-        console.log("Works");
+        console.log("You are logged in!");
         setEmail("");
         setPassword("");
       })
@@ -95,6 +96,7 @@ const LoginPage = () => {
           style={btnstyle}
           fullWidth
           onClick={signIn}
+
         >
           Sign in
         </Button>
@@ -103,7 +105,7 @@ const LoginPage = () => {
             <Link href="#">Forgot password</Link>
           </Typography>
           <Typography>
-            <Link href="#/Components/SignUp">New account</Link>
+            <Link href="/signup">New account</Link>
           </Typography>
         </Grid>
       </Paper>
