@@ -140,7 +140,7 @@ const SignUp = () =>  {
                     </FormControl>
                 </Box>
 
-                {/* <Grid align="center" style={{ paddingBottom: 10}}>
+                <Grid align="center" style={{ paddingBottom: 10}}>
                     <Button 
                         type="submit"
                         color="primary" 
@@ -153,7 +153,7 @@ const SignUp = () =>  {
                     <Typography>
                         <Link to="LoginPage">Already have an account ?</Link>
                     </Typography>
-                </Grid> */}
+                </Grid>
 
             </Paper>
         </Grid>
