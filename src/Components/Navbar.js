@@ -6,6 +6,7 @@ import {
   Typography,
   makeStyles,
 } from "@material-ui/core";
+import SignUpButton from './SignUpButton';
 import { Link } from "react-router-dom";
 import '../CSS/mainPage.css'
 import logo from '../Images/Group_A.png'
@@ -49,7 +50,7 @@ function Navbar() {
             <Link to="/test2" className={classes.link}>
               About
             </Link>
-            
+            <SignUpButton>SignUp</SignUpButton>
           </div>
       </Toolbar>
     </AppBar>
