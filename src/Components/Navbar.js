@@ -8,7 +8,6 @@ import {
 } from "@material-ui/core";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import SignUpButton from "./SignUpButton";
 import { Link } from "react-router-dom";
 import "../CSS/mainPage.css";
 import logo from "../Images/biggerLogo.png";
