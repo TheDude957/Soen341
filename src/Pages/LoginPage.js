@@ -7,9 +7,27 @@ import Typography from "@mui/material/Typography";
 import MailIcon from "@mui/icons-material/Mail";
 import LockIcon from "@mui/icons-material/Lock";
 import InputAdornment from "@mui/material/InputAdornment";
+import React, { useState } from "react";
+import { SignInUser } from "./firebaseService";
 
 const LoginPage = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
+
   const btnstyle = { margin: "15px 0" };
+  const signIn = () => {
+    SignInUser(email, password)
+      .then((data) => {
+        console.log("Works");
+        setEmail("");
+        setPassword("");
+      })
+      .catch((error) => {
+        console.log("ERROR");
+        setError(true);
+      });
+  };
   return (
     <Grid>
       <Paper
@@ -27,6 +45,12 @@ const LoginPage = () => {
           fullWidth
           required
           style={{ paddingBottom: 10 }}
+          error={error}
+          onChange={(email) => setEmail(email.target.value)}
+          onClick={() => {
+            setError(false);
+          }}
+          value={email}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -45,6 +69,15 @@ const LoginPage = () => {
           required
           style={{ paddingBottom: 10 }}
           variant="outlined"
+          onChange={(password) => setPassword(password.target.value)}
+          onClick={() => {
+            setError(false);
+          }}
+          value={password}
+          error={error}
+          helperText={
+            error ? "Email or Password is incorrect. Please try again!" : ""
+          }
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -60,6 +93,7 @@ const LoginPage = () => {
           variant="contained"
           style={btnstyle}
           fullWidth
+          onClick={signIn}
         >
           Sign in
         </Button>

@@ -28,31 +28,15 @@ export const SignOutUser = () => {
   });
 };
 
-
-export function getProducts() {
+export const SignUpUser = (user) => {
   return new Promise(function (resolve, reject) {
-    let products = [];
     firebase
       .database()
-      .ref("/product")
-      .once("value")
-      .then((snapshot) => {
-        snapshot.forEach(function (childSnapshot) {
-          var key = childSnapshot.key;
-          var data = childSnapshot.val();
-          products.push({
-            key: key,
-            name: data.name,
-            id: data.id,
-            picture: data.picture,
-            price: data.price,
-            category: data.category,
-          });
-        });
-        resolve(products);
+      .ref(user.type)
+      .push(user)
+      .then(() => {
+        resolve("Student added");
       })
-      .catch((error) => {
-        reject(error);
-      });
+      .catch((error) => reject(error));
   });
 };
