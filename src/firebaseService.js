@@ -28,6 +28,7 @@ export const SignOutUser = () => {
   });
 };
 
+
 export function getProducts() {
   return new Promise(function (resolve, reject) {
     let products = [];
