@@ -12,9 +12,9 @@ This is an online market platform that provides merchants a virtual space to sel
 
 The next points are the steps to follow in order to ensure a smooth experience with our web-application:
 
-1- Download the latest version of Visual Studio Code and use it as the development environment for this project.
+1- Download the latest version of [Visual Studio Code](https://code.visualstudio.com/) and use it as the development environment for this project.
 
-2- Download Node.js. Our team is using the version 16.14.0 LTS (the one recommended for most users).
+2- Download [Node.js](https://nodejs.org/en/). Our team is using the version 16.14.0 LTS (the one recommended for most users).
 
 3- Open this project in Visual Studio Code and open a new terminal.
 
@@ -26,7 +26,7 @@ The next points are the steps to follow in order to ensure a smooth experience w
 
 # TESTS
 
-You can access the most up to date tests written for our application here.
+You can access the most up to date acceptance tests written for our application [here](https://github.com/TheDude957/team_name-soen341project2022#:~:text=for%20our%20application-,here,-.).
 
 # TEAM MEMBERS
 
