@@ -8,11 +8,6 @@ function App() {
   return (
     <>
     <Router>
-      <SignUp/>
-    </Router>
-    </>
-    /*<>
-    <Router>
       <Navbar/>
       <Routes>
         <Route path ="/" element ={<Test1/>}/>
@@ -20,7 +15,7 @@ function App() {
       </Routes>
 
     </Router>
-    </>*/
+    </>
   );
 }
 
