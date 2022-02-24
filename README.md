@@ -11,16 +11,22 @@ This is an online market platform that provides merchants a virtual space to sel
 # INSTALLATION AND RUNNING PROCEDURE
 
 The next points are the steps to follow in order to ensure a smooth experience with our web-application:
-1- Download the latest version of Visual Studio Code and use it as the development environment for this project.
-2- Download Node.js. Our team is using the version 16.14.0 LTS (the one recommended for most users).
+
+1- Download the latest version of [Visual Studio Code](https://code.visualstudio.com/) and use it as the development environment for this project.
+
+2- Download [Node.js](https://nodejs.org/en/). Our team is using the version 16.14.0 LTS (the one recommended for most users).
+
 3- Open this project in Visual Studio Code and open a new terminal.
+
 4- In the new terminal, write the command "npm install" to install all the latest modules of the application.
+
 5- Once the modules are all installed, write the command "npm start". This should open a window with the website in your Chrome browser.
-6- To terminate your session, click in your terminal and press "Ctrl + C" for Windows users ("Cmd + C" for iOS users) and write "y" to the question "Terminate batch job (Y/N)?" 
+
+6- To terminate your session, click in your terminal and press "Ctrl + C" for Windows users ("Cmd + C" for iOS users) and write "y" as an answer to the question "Terminate batch job (Y/N)?" 
 
 # TESTS
 
-You can access the most up to date tests written for our application here.
+You can access the most up to date acceptance tests written for our application [here](https://github.com/TheDude957/team_name-soen341project2022/wiki/Acceptance-Testing).
 
 # TEAM MEMBERS
 
