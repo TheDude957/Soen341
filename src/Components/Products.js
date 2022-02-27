@@ -1,33 +1,37 @@
-
-import { useEffect , useState} from "react";
-import { getProducts } from "../firebaseService";
+import { useEffect, useState } from "react";
+import { getProducts , addProduct} from "../firebaseService";
 import ProductCard from "./ProductCard";
 
-function Products() {
-  const [product, setProducts] = useState([]);
 
-  
+function Products() {
+  const [getProduct, setProducts] = useState([]);
 
   useEffect(() => {
-    console.log("but Im here!");
     getProducts().then((values) => {
-        console.log(values);
-        values.forEach((value) => {
-            console.log(value);
-         // setProducts(value);
-        });
+      values.forEach((value) => {
+        setProducts((oldArray) => [...oldArray, value]);
       });
-
-  },[])
-
-console.log("its me");
+    });
+  }, []);
 
   return (
     <>
-      
+      <ul className = "list-grid">
+        {getProduct.map((prod) => {
+          return (
+            <li class="list-in-grid">
+              <ProductCard
+                price={prod.price}
+                id={prod.id}
+                category={prod.category}
+                name={prod.name}
+              ></ProductCard>
+            </li>
+          );
+        })}
+      </ul>
     </>
   );
-  
-}
 
+}
 export default Products;
