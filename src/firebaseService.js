@@ -42,6 +42,18 @@ export const SignUpUser = (user) => {
 };
 
 
+
+export function addProduct(product){
+  firebase.database().ref("/product").push({
+    name : product.name,
+    price : product.price,
+    id : product.id,
+    category : product.category,
+    picture : product.picture
+  });
+}
+
+// a function to retrieve all products from store
 export function getProducts() {
   return new Promise(function (resolve, reject) {
     let products = [];
