@@ -28,19 +28,19 @@ export const SignOutUser = () => {
   });
 };
 
-export const SignUpUser = (user) => {
+export const SignUpUser = (user, password) => {
   return new Promise(function (resolve, reject) {
     firebase
       .database()
       .ref(user.type)
       .push(user)
       .then(() => {
+        firebase.auth().createUserWithEmailAndPassword(user.email, password);
         resolve("Student added");
       })
       .catch((error) => reject(error));
   });
 };
-
 
 export function getProducts() {
   return new Promise(function (resolve, reject) {
@@ -68,4 +68,4 @@ export function getProducts() {
         reject(error);
       });
   });
-};
+}
