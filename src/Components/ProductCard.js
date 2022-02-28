@@ -14,10 +14,11 @@ function ProductCard(props) {
 
   return (
 
-     <Card sx={{ maxWidth: 345 }}>
+     <Card  sx={{ maxWidth: 330}}>
       <CardMedia
         component="img"
         height="140"
+        
         image = {require ("../Images/bert_n_ernie_socks.jpg")}
         alt="bert and ernie"
       />
@@ -30,8 +31,9 @@ function ProductCard(props) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">{props.price}</Button>
+        <Button size="small">{props.price}$</Button>
         <Button size="small">{props.category}</Button>
+        <Button size="medium">add to cart</Button>
       </CardActions>
     </Card>
       

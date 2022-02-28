@@ -17,9 +17,16 @@
 
 .footer{
     background-color: rgb(63, 81, 181);
-    position: fixed-bottom;
+    position: fixed;
     height: 100px; 
     bottom: 0;
     width: 100%;
 
 }
+
+.list-grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 10px;
+  }

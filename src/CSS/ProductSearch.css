@@ -13,3 +13,24 @@
     height: 30px;
     width: 300px;
 }
+
+.main {
+    margin: 30px;
+    display: flex;
+    height: 20vh;
+    width: 100%;
+    align-items: center;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+
+
+.search {
+    margin-top: 45px;
+    width: 90%;
+}
+
+ul li {
+    font-size: 20px;
+} 
