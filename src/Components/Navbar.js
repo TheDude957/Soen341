@@ -11,6 +11,7 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { Link } from "react-router-dom";
 import "../CSS/mainPage.css";
 import logo from "../Images/biggerLogo.png";
+import ProductSearch from "../Components/ProductSearch";
 
 const useStyles = makeStyles((theme) => ({
   navlinks: {
@@ -61,6 +62,7 @@ function Navbar() {
           <Link to="/login" className={classes.link}>
             <AccountCircleIcon />
           </Link>
+
           <Link to="/cart" className={classes.link}>
             <ShoppingCartOutlinedIcon />
           </Link>

@@ -151,7 +151,7 @@ const SignUp = () =>  {
                 </Grid>
                 <Grid align="center">
                     <Typography>
-                        <Link to="LoginPage">Already have an account ?</Link>
+                        <Link to="/login">Already have an account ?</Link>
                     </Typography>
                 </Grid>
 
