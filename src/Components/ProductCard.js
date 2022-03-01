@@ -1,46 +1,34 @@
-import * as React from 'react';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import bert from "../Images/bert_n_ernie_socks.jpg"
-
-
+import * as React from "react";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import "../CSS/ProductCard.css";
 function ProductCard(props) {
-  
- 
-
   return (
-
-     <Card  sx={{ maxWidth: 330}}>
+    <Card className="product">
       <CardMedia
         component="img"
-        height="140"
-        
-        image = {require ("../Images/bert_n_ernie_socks.jpg")}
-        alt="bert and ernie"
+        className="product-img"
+        image={props.picture}
+        alt={props.name}
       />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-        {props.name}
+      <CardContent style={{ padding: 0, paddingTop: 3 }}>
+        <Typography className="product-text title">{props.name}</Typography>
+        <Typography className="product-text description">
+          {props.description}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {props.id}
-        </Typography>
+        <Typography className="product-text price">${props.price}</Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">{props.price}$</Button>
-        <Button size="small">{props.category}</Button>
-        <Button size="medium">add to cart</Button>
+        <Button color="primary" variant="contained" fullWidth>
+          ADD TO CART
+        </Button>
       </CardActions>
     </Card>
-      
-      
-      );
+  );
 }
 
 export default ProductCard;
-
-
