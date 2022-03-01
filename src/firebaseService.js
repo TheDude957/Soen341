@@ -66,6 +66,7 @@ export function searchProduct(string) {
               picture: data.picture,
               price: data.price,
               category: data.category,
+              description: data.description,
             });
           }
         });
@@ -82,11 +83,11 @@ export function searchProduct(string) {
               picture: data.picture,
               price: data.price,
               category: data.category,
+              description: data.description,
             });
           }
         });
 
-        console.log(products);
         resolve(products);
       })
       .catch((error) => {
@@ -108,6 +109,7 @@ export function addProduct(product) {
     id: product.id,
     category: product.category,
     picture: product.picture,
+    description: product.description,
   });
 }
 
@@ -130,6 +132,7 @@ export function getProducts() {
             picture: data.picture,
             price: data.price,
             category: data.category,
+            description: data.description,
           });
         });
         resolve(products);
