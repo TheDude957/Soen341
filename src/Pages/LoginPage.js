@@ -2,14 +2,13 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
+import { Link } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import MailIcon from "@mui/icons-material/Mail";
 import LockIcon from "@mui/icons-material/Lock";
 import InputAdornment from "@mui/material/InputAdornment";
 import React, { useState } from "react";
 import { SignInUser } from "../firebaseService";
-import SignUp from "../Components/SignUp";
 
 
 const LoginPage = () => {
@@ -102,11 +101,13 @@ const LoginPage = () => {
         </Button>
         <Grid align="center">
           <Typography>
-            <Link href="#">Forgot password</Link>
+            <Link to="#">Forgot password</Link>
           </Typography>
+          <Link to="/signup">
           <Typography>
-            <Link href="/signup">New account</Link>
+            New account
           </Typography>
+          </Link>
         </Grid>
       </Paper>
     </Grid>

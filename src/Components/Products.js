@@ -1,33 +1,33 @@
-
-import { useEffect , useState} from "react";
+import { useEffect, useState } from "react";
 import { getProducts } from "../firebaseService";
 import ProductCard from "./ProductCard";
 
-function Products() {
-  const [product, setProducts] = useState([]);
-
-  
+function Products(props) {
+  const [getProduct, setProducts] = useState([]);
 
   useEffect(() => {
-    console.log("but Im here!");
-    getProducts().then((values) => {
-        console.log(values);
-        values.forEach((value) => {
-            console.log(value);
-         // setProducts(value);
-        });
+    getProducts().then((products) => {
+      products.forEach((product) => {
+        setProducts((prev) => [...prev, product]);
       });
-
-  },[])
-
-console.log("its me");
+    });
+  }, []);
 
   return (
-    <>
-      
-    </>
+    <div className="products">
+      {getProduct.map((product) => {
+        return (
+          <ProductCard
+            price={product.price}
+            id={product.id}
+            category={product.category}
+            name={product.name}
+            description={product.description}
+            picture={product.picture}
+          ></ProductCard>
+        );
+      })}
+    </div>
   );
-  
 }
-
 export default Products;
