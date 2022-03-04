@@ -9,7 +9,6 @@ import LockIcon from "@mui/icons-material/Lock";
 import InputAdornment from "@mui/material/InputAdornment";
 import React, { useState } from "react";
 import { SignInUser } from "../firebaseService";
-import SignUp from "../Components/SignUp";
 
 
 const LoginPage = () => {
@@ -34,7 +33,7 @@ const LoginPage = () => {
     <Grid>
       <Paper
         elevation={10}
-        style={{ padding: 30, width: 500, margin: "200px auto" }}
+        style={{ padding: 30, width: 500, margin: "100px auto" }}
       >
         <Grid align="center" style={{ paddingBottom: 30 }}>
           <h2>Login</h2>

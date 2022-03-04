@@ -28,14 +28,14 @@ export const SignOutUser = () => {
   });
 };
 
-export const SignUpUser = (user, password) => {
+export const SignUpUser = (firstname, lastname, email, password, user) => {
   return new Promise(function (resolve, reject) {
     firebase
       .database()
       .ref(user.type)
       .push(user)
       .then(() => {
-        firebase.auth().createUserWithEmailAndPassword(user.email, password);
+        firebase.auth().createUserWithEmailAndPassword(email, password);
         resolve("Student added");
       })
       .catch((error) => reject(error));
