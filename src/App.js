@@ -6,7 +6,7 @@ import LoginPage from "./Pages/LoginPage";
 import Footer from "./Components/Footer";
 import Cart from "./Components/Cart";
 import ProductSearch from "./Components/ProductSearch";
-import SignUp from "./Pages/SignUp";
+import SignUp from "./Components/SignUp";
 
 
 import React from "react";
