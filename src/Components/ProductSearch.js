@@ -32,7 +32,7 @@ function ProductSearch(props) {
           inputProps={{ "aria-label": "search " }}
         />
         <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-        <IconButton type="submit" sx={{ p: "10px" }} aria-label="search">
+        <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
           <SearchIcon />
         </IconButton>
       </Paper>
