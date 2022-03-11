@@ -1,17 +1,41 @@
 import { useEffect, useState } from "react";
-import { getProducts } from "../firebaseService";
+import { getProducts , searchProduct} from "../firebaseService";
 import ProductCard from "./ProductCard";
 
 function Products(props) {
   const [getProduct, setProducts] = useState([]);
+  const [isSearched, setIsSearched] = useState(false);
+
+
 
   useEffect(() => {
-    getProducts().then((products) => {
-      products.forEach((product) => {
-        setProducts((prev) => [...prev, product]);
+    
+    console.log("is Search " + isSearched + props.searchValue);
+    if (!isSearched) {
+      getProducts().then((values) => {
+        values.forEach((value) => {
+          setProducts((oldArray) => [...oldArray, value]);
+        });
       });
-    });
-  }, []);
+    }
+    else{
+        searchProduct(props.searchValue).then((values) => {
+          values.forEach((value) => {
+            setProducts((oldArray) => [...oldArray, value]);
+          });
+        });
+
+    }
+    return () => {
+      if (props.searchValue === "") {
+        setIsSearched(false);
+      } else {
+        setIsSearched(true);
+      }
+      setProducts([]);
+  }
+
+  }, [props.searchValue]);
 
   return (
     <div className="products">
