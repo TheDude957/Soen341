@@ -1,24 +1,20 @@
-import Products from '../Components/Products';
-import ProductSearch from "../Components/ProductSearch"
-import * as React from 'react';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import Products from "../Components/Products";
+import ProductSearch from "../Components/ProductSearch";
+import { useState } from "react";
+import * as React from "react";
 
-
-function HomePage(props){
-return(
-
+function HomePage(props) {
+  const [searchItem, setSearchItem] = useState("");
+  
+  const getProductInfo = (info) => {
+    setSearchItem(info);
+  };
+  return (
     <>
-    <ProductSearch/>
-    <Products/>
+      <ProductSearch getValue={getProductInfo} />
+      <Products searchValue={searchItem} />
     </>
-);
-
+  );
 }
 
 export default HomePage;
-
