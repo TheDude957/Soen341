@@ -142,3 +142,22 @@ export function getProducts() {
       });
   });
 }
+
+export function GetUserInformation() {
+  let currentUserEmail = firebase.auth().currentUser.email;
+  let currentUser;
+  return new Promise(function (resolve, reject) {
+    firebase
+      .database()
+      .ref("/users")
+      .once("value")
+      .then((snapshot) => {
+        snapshot.forEach(function (childSnapshot) {
+          if (snapshot.val().Email === currentUserEmail) {
+            currentUser = snapshot.val();
+          }
+        });
+        resolve(currentUser);
+      });
+  });
+}
