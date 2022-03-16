@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {Grid, TextField, Button} from '@material-ui/core';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import MailIcon from "@mui/icons-material/Mail";
@@ -9,16 +9,17 @@ import InputAdornment from "@mui/material/InputAdornment";
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { firebase } from "../Setup";
+import { SignUpUser } from "../firebaseService";
 
 const SignUp = () =>  {
     const [firstname, setFirstName] = useState('');
     const [lastname, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [user, setUser] = useState('');
+    const [confirmPassword, setConPassword] = useState('');
+    const [userType, setUserType] = useState('');
     
-    const userType = ["Customer", "Seller", "Admin"];
+    const userTypes = ["", "Customer", "Seller", "Admin"];
     const [error, setError] = useState(false);
 
     const handleChangeFN = (event) => {
@@ -33,20 +34,41 @@ const SignUp = () =>  {
     const handleChangeP = (event) => {
         setPassword(event.target.value);
     };
+    const handleChangeCP = (event) => {
+        setConPassword(event.target.value);
+    };
     const handleChangeU = (event) => {
-        setUser(event.target.value);
+        setUserType(event.target.value);
     };
 
-    function writeUserData(user, firstname, lastname, email, password) {
-        firebase.database().ref('users/' + email).set({
-          Email: email,
-          Firstname: firstname,
-          Lastname: lastname,
-          Password : password,
-          UserType: user
-        });
+    const userObj = {
+        firstName: firstname,
+        lastName : lastname,
+        email: email,
+        password: password,
+        userType : userType
     }
     
+    let navigate = useNavigate();
+    const signUp = () => {
+        SignUpUser(password, userObj)
+          .then((data) => {
+            console.log("You have created an account!");
+            setFirstName("");
+            setLastName("");
+            setEmail("");
+            setPassword("");
+            setUserType("");
+            setConPassword("");
+            let path = `/login`;
+            navigate(path);
+          })
+          .catch((error) => {
+            console.log("ERROR");
+            setError(true);
+          });
+      };
+
     return (
         <Grid container>
             <Paper
@@ -64,6 +86,10 @@ const SignUp = () =>  {
                         label="First Name" 
                         placeholder="First Name"
                         required
+                        error={error}
+                        onClick={() => {
+                            setError(false);
+                          }}
                         style={{ paddingBottom: 10, paddingRight: 10, width: '50%'}}
                         value={firstname}
                         onChange={handleChangeFN}
@@ -76,6 +102,10 @@ const SignUp = () =>  {
                         label="Last Name" 
                         placeholder="Last Name"
                         required
+                        error={error}
+                        onClick={() => {
+                            setError(false);
+                          }}
                         style={{ paddingBottom: 10, width: '50%'}}
                         value={lastname}
                         onChange={handleChangeLN}
@@ -89,6 +119,10 @@ const SignUp = () =>  {
                         variant="outlined"
                         style={{ paddingBottom: 10, paddingRight: 10, width: '50%' }}
                         required
+                        error={error}
+                        onClick={() => {
+                            setError(false);
+                          }}
                         onChange={handleChangeE}
                         value={email}
                         InputProps={{
@@ -105,11 +139,15 @@ const SignUp = () =>  {
                         <Select native
                         id="required-user-type"
                         onChange={handleChangeU}
-                        value={user}
+                        value={userType}
                         label="User"
                         required
+                        error={error}
+                        onClick={() => {
+                            setError(false);
+                          }}
                         >
-                            {userType.map((type)=>(<option>{type}</option>))}
+                            {userTypes.map((type)=>(<option>{type}</option>))}
                         </Select>
                 </FormControl>
 
@@ -120,9 +158,16 @@ const SignUp = () =>  {
                         label="Password" 
                         placeholder="Password"
                         required
+                        error={error}
+                        onClick={() => {
+                            setError(false);
+                          }}
                         style={{ paddingBottom: 10, paddingRight: 10, width: '50%' }}
                         value={password}
                         onChange={handleChangeP}
+                        helperText={
+                            error ? "Information missing. Please try again!" : ""
+                        }
                         InputProps={{
                             startAdornment: (
                                 <InputAdornment position="start">
@@ -138,7 +183,13 @@ const SignUp = () =>  {
                         label="Confirm Password" 
                         placeholder="Confirm Passowrd"
                         required
+                        error={error}
+                        onClick={() => {
+                            setError(false);
+                          }}
                         style={{ paddingBottom: 10, width: '50%' }}
+                        value={confirmPassword}
+                        onChange={handleChangeCP}
                         InputProps={{
                             startAdornment: (
                                 <InputAdornment position="start">
@@ -153,7 +204,7 @@ const SignUp = () =>  {
                         type="submit"
                         color="primary" 
                         variant="contained"
-                        onclick={writeUserData}
+                        onClick={signUp}
                     >
                         Create Account
                     </Button>
