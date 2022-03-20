@@ -208,3 +208,21 @@ export async function GetCurrentUserCart() {
     resolve(currentUser.Cart || "");
   });
 }
+
+export async function RemoveItemFromCart(itemId) {
+  let currentUser = await GetCurrentUserInformation();
+  let cart = [];
+
+  cart.push(...Object.values(currentUser.Cart));
+  cart.splice(
+    cart.findIndex((items) => items === itemId),
+    1
+  );
+  return new Promise(function (resolve, reject) {
+    firebase
+      .database()
+      .ref(`/Customer/-MyJX0pgxGEfpkZjOPGD/`)
+      .update({ Cart: cart });
+    resolve("Item Added");
+  });
+}
