@@ -47,3 +47,18 @@
 .product-text.price {
   font-weight: 600;
 }
+
+.product .quantity-box {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  padding: 5px;
+  /* border: 1px solid #b9b5b5; */
+  border-radius: 8px;
+}
+.quantity {
+  font-size: 14px;
+  font-weight: 650;
+}
