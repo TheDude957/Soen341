@@ -181,3 +181,23 @@ function GetCurrentUserId() {
       });
   });
 }
+
+export async function AddItemToCart(itemId) {
+  let currentUser = await GetCurrentUserInformation();
+  let cart = [];
+
+  if (currentUser.Cart !== undefined) {
+    cart.push(...Object.values(currentUser.Cart));
+  }
+  if (!cart.includes(itemId)) {
+    cart.push(itemId);
+  }
+  return new Promise(function (resolve, reject) {
+    firebase
+      .database()
+      .ref(`/Customer/-MyJX0pgxGEfpkZjOPGD/`)
+      .update({ Cart: cart });
+
+    resolve("Item Added");
+  });
+}
