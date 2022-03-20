@@ -12,8 +12,8 @@ import Select from '@mui/material/Select';
 import { SignUpUser } from "../firebaseService";
 
 const SignUp = () =>  {
-    const [firstname, setFirstName] = useState('');
-    const [lastname, setLastName] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConPassword] = useState('');
@@ -22,28 +22,28 @@ const SignUp = () =>  {
     const userTypes = ["", "Customer", "Seller", "Admin"];
     const [error, setError] = useState(false);
 
-    const handleChangeFN = (event) => {
+    const handleChangeFirstNanme = (event) => {
         setFirstName(event.target.value);
     };
-    const handleChangeLN = (event) => {
+    const handleChangeLastName = (event) => {
         setLastName(event.target.value);
     };
-    const handleChangeE = (event) => {
+    const handleChangeEmail = (event) => {
         setEmail(event.target.value);
     };
-    const handleChangeP = (event) => {
+    const handleChangePassword = (event) => {
         setPassword(event.target.value);
     };
-    const handleChangeCP = (event) => {
+    const handleChangeConfirmPassword = (event) => {
         setConPassword(event.target.value);
     };
-    const handleChangeU = (event) => {
+    const handleChangeUserType = (event) => {
         setUserType(event.target.value);
     };
 
     const userObj = {
-        firstName: firstname,
-        lastName : lastname,
+        firstName: firstName,
+        lastName : lastName,
         email: email,
         password: password,
         userType : userType
@@ -91,8 +91,8 @@ const SignUp = () =>  {
                             setError(false);
                           }}
                         style={{ paddingBottom: 10, paddingRight: 10, width: '50%'}}
-                        value={firstname}
-                        onChange={handleChangeFN}
+                        value={firstName}
+                        onChange={handleChangeFirstNanme}
                 />
                 
                 <TextField 
@@ -107,8 +107,8 @@ const SignUp = () =>  {
                             setError(false);
                           }}
                         style={{ paddingBottom: 10, width: '50%'}}
-                        value={lastname}
-                        onChange={handleChangeLN}
+                        value={lastName}
+                        onChange={handleChangeLastName}
                 />
                 
                 <TextField 
@@ -123,7 +123,7 @@ const SignUp = () =>  {
                         onClick={() => {
                             setError(false);
                           }}
-                        onChange={handleChangeE}
+                        onChange={handleChangeEmail}
                         value={email}
                         InputProps={{
                             startAdornment: (
@@ -138,7 +138,7 @@ const SignUp = () =>  {
                     <InputLabel id="user-type">User</InputLabel>
                         <Select native
                         id="required-user-type"
-                        onChange={handleChangeU}
+                        onChange={handleChangeUserType}
                         value={userType}
                         label="User"
                         required
@@ -164,7 +164,7 @@ const SignUp = () =>  {
                           }}
                         style={{ paddingBottom: 10, paddingRight: 10, width: '50%' }}
                         value={password}
-                        onChange={handleChangeP}
+                        onChange={handleChangePassword}
                         helperText={
                             error ? "Information missing. Please try again!" : ""
                         }
@@ -189,7 +189,7 @@ const SignUp = () =>  {
                           }}
                         style={{ paddingBottom: 10, width: '50%' }}
                         value={confirmPassword}
-                        onChange={handleChangeCP}
+                        onChange={handleChangeConfirmPassword}
                         InputProps={{
                             startAdornment: (
                                 <InputAdornment position="start">
