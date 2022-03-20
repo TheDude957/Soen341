@@ -1,5 +1,5 @@
+import { useState } from "react";
 import { firebase } from "./Setup";
-
 export const SignInUser = (email, passsword) => {
   return new Promise(function (resolve, reject) {
     firebase
@@ -143,21 +143,41 @@ export function getProducts() {
   });
 }
 
-export function GetUserInformation() {
-  let currentUserEmail = firebase.auth().currentUser.email;
+export async function GetCurrentUserInformation() {
   let currentUser;
+  let currentUserId = await GetCurrentUserId();
+  return new Promise(function (resolve, reject) {
+    if (currentUserId !== null) {
+      firebase
+        .database()
+        .ref(`/Customer/${currentUserId}`)
+        .once("value")
+        .then((snapshot) => {
+          currentUser = snapshot.val();
+          resolve(currentUser || null);
+        });
+    } else {
+      return null;
+    }
+  });
+}
+
+function GetCurrentUserId() {
+  let currentUserId;
+  let currentUserEmail = firebase.auth().currentUser.email;
+
   return new Promise(function (resolve, reject) {
     firebase
       .database()
-      .ref("/users")
+      .ref("/Customer/")
       .once("value")
       .then((snapshot) => {
         snapshot.forEach(function (childSnapshot) {
-          if (snapshot.val().Email === currentUserEmail) {
-            currentUser = snapshot.val();
+          if (childSnapshot.val().email === currentUserEmail) {
+            currentUserId = childSnapshot.key;
           }
         });
-        resolve(currentUser);
+        resolve(currentUserId || null);
       });
   });
 }
