@@ -201,3 +201,10 @@ export async function AddItemToCart(itemId) {
     resolve("Item Added");
   });
 }
+
+export async function GetCurrentUserCart() {
+  let currentUser = await GetCurrentUserInformation();
+  return new Promise(function (resolve, reject) {
+    resolve(currentUser.Cart || "");
+  });
+}
