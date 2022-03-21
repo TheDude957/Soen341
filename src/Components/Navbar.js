@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   AppBar,
   Toolbar,
@@ -33,8 +33,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "20px",
     marginLeft: theme.spacing(5),
     "&:hover": {
-      color: "yellow",
-      borderBottom: "1px solid white",
+      color: "#0099e6",
     },
   },
 }));
@@ -46,6 +45,9 @@ const useStyles = makeStyles((theme) => ({
  */
 function Navbar() {
   const classes = useStyles();
+  useEffect(() => {
+    
+  });
 
   return (
     <AppBar position="static">
