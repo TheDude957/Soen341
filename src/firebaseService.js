@@ -1,5 +1,11 @@
-import { useState } from "react";
 import { firebase } from "./Setup";
+/**
+ * This page contains all the functions related to firebase
+ */
+
+/**
+ * Sign in function
+ */
 export const SignInUser = (email, passsword) => {
   return new Promise(function (resolve, reject) {
     firebase
@@ -14,6 +20,9 @@ export const SignInUser = (email, passsword) => {
   });
 };
 
+/**
+ * Sign out function
+ */
 export const SignOutUser = () => {
   return new Promise(function (resolve, reject) {
     firebase
@@ -28,6 +37,9 @@ export const SignOutUser = () => {
   });
 };
 
+/**
+ * Sign up function
+ */
 export const SignUpUser = (user, password) => {
   return new Promise(function (resolve, reject) {
     firebase
@@ -42,6 +54,9 @@ export const SignUpUser = (user, password) => {
   });
 };
 
+/**
+ * Function to search item in database
+ */
 export function searchProduct(string) {
   console.log("in search product method");
   // first search by name
@@ -96,12 +111,9 @@ export function searchProduct(string) {
   });
 }
 
-// snapshot.forEach(function (childSnapshot) {
-//   var data = childSnapshot.val();
-//   if (data.category === string)
-//     products = pushProduct2Array(products, childSnapshot.key, data);
-// });
-
+/**
+ * Function to add a product to the database
+ */
 export function addProduct(product) {
   firebase.database().ref("/product").push({
     name: product.name,
@@ -113,7 +125,9 @@ export function addProduct(product) {
   });
 }
 
-// a function to retrieve all products from store
+/**
+ * FunctionAdd to retrieve all products from store
+ */
 export function getProducts() {
   return new Promise(function (resolve, reject) {
     let products = [];
@@ -143,6 +157,9 @@ export function getProducts() {
   });
 }
 
+/**
+ * Function to get all information of current User
+ */
 export async function GetCurrentUserInformation() {
   let currentUser;
   let currentUserId = await GetCurrentUserId();
@@ -161,7 +178,9 @@ export async function GetCurrentUserInformation() {
     }
   });
 }
-
+/**
+ * Function to get ID of current User
+ */
 function GetCurrentUserId() {
   let currentUserId;
   let currentUserEmail = firebase.auth().currentUser.email;
@@ -181,7 +200,9 @@ function GetCurrentUserId() {
       });
   });
 }
-
+/**
+ * Function to add item in the Cart of the User
+ */
 export async function AddItemToCart(itemId) {
   let currentUser = await GetCurrentUserInformation();
   let cart = [];
@@ -201,14 +222,18 @@ export async function AddItemToCart(itemId) {
     resolve("Item Added");
   });
 }
-
+/**
+ * Function to get the current User Cart
+ */
 export async function GetCurrentUserCart() {
   let currentUser = await GetCurrentUserInformation();
   return new Promise(function (resolve, reject) {
     resolve(currentUser.Cart || "");
   });
 }
-
+/**
+ * Function to remove all an item from the cart of the user
+ */
 export async function RemoveItemFromCart(itemId) {
   let currentUser = await GetCurrentUserInformation();
   let cart = [];

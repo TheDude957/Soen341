@@ -3,8 +3,14 @@ import React, { useState } from "react";
 import { storage } from "../Setup";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { addProduct } from "../firebaseService.js";
-
+/*
+This Component is used to add an item to firebae
+Returns a form 
+*/
 const AddItem = () => {
+  /*
+ State for item information
+ */
   const categories = ["Electronics", "Furniture", "Clothes", "Toys"];
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -12,12 +18,18 @@ const AddItem = () => {
   const [category, setCategory] = useState("");
   const [image, setImage] = useState(null);
 
+  /*
+ State to track errors
+ */
   const [titleError, setTitleError] = useState(false);
   const [descriptionError, setDescriptionError] = useState(false);
   const [priceError, setPriceError] = useState(false);
   const [categoryError, setCategoryError] = useState(false);
   const [imageError, setImageError] = useState(false);
 
+  /*
+  Check if the form is completed before sanding the information of item to the database
+  */
   const formHandler = (e) => {
     e.preventDefault();
     title === "" ? setTitleError(true) : setTitleError(false);
@@ -49,7 +61,9 @@ const AddItem = () => {
       }, 3000);
     }
   };
-
+  /*
+Upload a function in firebase storage
+ */
   const uploadFiles = (image) => {
     //
     if (!image) return;

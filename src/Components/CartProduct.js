@@ -9,10 +9,18 @@ import TextField from "@mui/material/TextField";
 import "../CSS/ProductCard.css";
 import { GetCurrentUserCart, RemoveItemFromCart } from "../firebaseService";
 
+/*
+  Returns the item with all the information
+  Styling is provided to make it look as a Card
+  */
 function CartProduct(props) {
   const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {}, []);
+  /*
+  Function to remove item for Cart
+  */
+
   async function removeItem() {
     await RemoveItemFromCart(props.id);
     props.setProductsCart(await GetCurrentUserCart());

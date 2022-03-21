@@ -1,11 +1,20 @@
 import CartProduct from "./CartProduct";
 import { useEffect, useState } from "react";
 import { getProducts, GetCurrentUserCart } from "../firebaseService";
+
+/*
+Cart of User
+Return all items inside the Cart of the User
+*/
+
 function Cart() {
   const [getProduct, setProducts] = useState([]);
 
   const [productsCart, setProductsCart] = useState([]);
 
+  /*
+  Get the Cart of the User
+  */
   async function getUserCart() {
     await GetCurrentUserCart().then((cartItems) => {
       if (cartItems !== undefined) {
@@ -27,6 +36,7 @@ function Cart() {
   useEffect(() => {
     getUserCart();
   }, []);
+
   return (
     <div className="products">
       {getProduct

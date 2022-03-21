@@ -8,6 +8,11 @@ import Typography from "@mui/material/Typography";
 import "../CSS/ProductCard.css";
 import { AddItemToCart } from "../firebaseService";
 function ProductCard(props) {
+  /**
+   * Function to add an item to the Cart
+   * Returns a product with all the information
+   * Styling is provided to make it look as a Card
+   */
   async function addToCart() {
     await AddItemToCart(props.id);
   }
