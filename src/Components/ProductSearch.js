@@ -8,54 +8,42 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import DirectionsIcon from "@mui/icons-material/Directions";
-
+/**
+ * Search bar to search items in the store
+ */
 function ProductSearch(props) {
-
   const onsubmitted = (event) => {
     event.preventDefault();
     props.getValue(event.target.value);
-
-  }
+  };
 
   return (
     <div className="main">
-        <form >
-      <Paper
-        component="form"
-        sx={{ p: "2px 4px", display: "flex", alignItems: "center", width: 500 }}
-      >
-        <InputBase
-        onChange = {onsubmitted}
-          sx={{ ml: 1, flex: 1 }}
-          name = "search-item"
-          placeholder="Search Products"
-          inputProps={{ "aria-label": "search " }}
-        />
-        <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-        <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
-          <SearchIcon />
-        </IconButton>
-      </Paper>
+      <form>
+        <Paper
+          component="form"
+          sx={{
+            p: "2px 4px",
+            display: "flex",
+            alignItems: "center",
+            width: 500,
+          }}
+        >
+          <InputBase
+            onChange={onsubmitted}
+            sx={{ ml: 1, flex: 1 }}
+            name="search-item"
+            placeholder="Search Products"
+            inputProps={{ "aria-label": "search " }}
+          />
+          <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+          <IconButton type="submit" sx={{ p: "10px" }} aria-label="search">
+            <SearchIcon />
+          </IconButton>
+        </Paper>
       </form>
     </div>
   );
-
-  // <Paper
-  //     elevation={5}
-  //     style={{  width: 500, margin: "30px auto" }}
-  //   >
-  //       <div className ="main">
-  //   <div className="search">
-  //     <TextField
-  //       id="outlined-basic"
-  //       variant="outlined"
-  //       fullWidth
-  //       label="Search"
-  //     />
-  //   </div>
-  //   </div>
-
-  //   </Paper>
 }
 
 export default ProductSearch;

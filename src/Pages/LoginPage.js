@@ -9,18 +9,24 @@ import LockIcon from "@mui/icons-material/Lock";
 import InputAdornment from "@mui/material/InputAdornment";
 import React, { useState } from "react";
 import { SignInUser } from "../firebaseService";
+import { useNavigate } from "react-router-dom";
 
-
+/**
+ * Sign In page
+ * Includes links to Sign up or forgot password
+ * @returns a form with email and password textfields. If the user in sign in successfully, he will be redirected to the main page
+ */
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
-
+  const navigate = useNavigate();
   const btnstyle = { margin: "15px 0" };
   const signIn = () => {
     SignInUser(email, password)
       .then((data) => {
         console.log("You are logged in!");
+        navigate("/");
         setEmail("");
         setPassword("");
       })
@@ -29,6 +35,7 @@ const LoginPage = () => {
         setError(true);
       });
   };
+
   return (
     <Grid>
       <Paper
@@ -95,7 +102,6 @@ const LoginPage = () => {
           style={btnstyle}
           fullWidth
           onClick={signIn}
-
         >
           Sign in
         </Button>
@@ -104,9 +110,7 @@ const LoginPage = () => {
             <Link to="#">Forgot password</Link>
           </Typography>
           <Link to="/signup">
-          <Typography>
-            New account
-          </Typography>
+            <Typography>New account</Typography>
           </Link>
         </Grid>
       </Paper>

@@ -6,7 +6,17 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import "../CSS/ProductCard.css";
+import { AddItemToCart } from "../firebaseService";
 function ProductCard(props) {
+  /**
+   * Function to add an item to the Cart
+   * Returns a product with all the information
+   * Styling is provided to make it look as a Card
+   */
+  async function addToCart() {
+    await AddItemToCart(props.id);
+  }
+
   return (
     <Card className="product">
       <CardMedia
@@ -23,7 +33,12 @@ function ProductCard(props) {
         <Typography className="product-text price">${props.price}</Typography>
       </CardContent>
       <CardActions>
-        <Button color="primary" variant="contained" fullWidth>
+        <Button
+          color="primary"
+          variant="contained"
+          fullWidth
+          onClick={addToCart}
+        >
           ADD TO CART
         </Button>
       </CardActions>

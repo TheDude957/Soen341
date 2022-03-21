@@ -11,8 +11,10 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { Link } from "react-router-dom";
 import "../CSS/mainPage.css";
 import logo from "../Images/biggerLogo.png";
-import ProductSearch from "../Components/ProductSearch";
 
+/**
+ * Style of the NavBar
+ */
 const useStyles = makeStyles((theme) => ({
   navlinks: {
     marginLeft: theme.spacing(5),
@@ -22,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: "1",
     cursor: "pointer",
   },
-  title:{
+  title: {
     fontSize: "400px",
   },
   link: {
@@ -37,6 +39,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+/**
+ * Nav Bar of the app
+ * Contains the logo and name of the app
+ * Contain links to other page like the sign in, Home, Cart
+ */
 function Navbar() {
   const classes = useStyles();
 
@@ -46,10 +53,9 @@ function Navbar() {
       <Toolbar>
         <Typography variant="h4" className={classes.logo}>
           <img className="logo" src={logo} alt="Logo" />
-          
         </Typography>
         <Typography variant="h6" className={classes.logo}>
-        <h className="title">Group A Store</h>
+          <h className="title">Group A Store</h>
         </Typography>
 
         <div className={classes.navlinks}>
@@ -62,10 +68,12 @@ function Navbar() {
           <Link to="/login" className={classes.link}>
             <AccountCircleIcon />
           </Link>
-
-          <Link to="/cart" className={classes.link}>
-            <ShoppingCartOutlinedIcon />
-          </Link>
+          <div className="cart-menu-btn">
+            <Link to="/cart" className={classes.link}>
+              <ShoppingCartOutlinedIcon />
+            </Link>
+            <span className="cart-indicator">{1}</span>
+          </div>
         </div>
       </Toolbar>
     </AppBar>

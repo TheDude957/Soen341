@@ -2,6 +2,10 @@ import { useEffect, useState } from "react";
 import { getProducts , searchProduct} from "../firebaseService";
 import ProductCard from "./ProductCard";
 
+/*
+Display all items in the store
+*/
+
 function Products(props) {
   const [getProduct, setProducts] = useState([]);
   const [isSearched, setIsSearched] = useState(false);
