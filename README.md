@@ -31,13 +31,14 @@ Acceptance tests:
 You can access the most up to date acceptance tests written for our application [here](https://github.com/TheDude957/team_name-soen341project2022/wiki/Acceptance-Tests-Sprint-3).
 
 
+
 Run our client-side tests using [Playwrigt Inspector](https://playwright.dev/docs/inspector):
 
-1- In your terminal, write the command "npm i -D @playwright/test" to install the test runner. This step only needs to be executed once, for installation purposes.
+1- In your terminal, write the command "npm install" to install all the latest modules of the application. This should install the playwright dependencies in your working directory.
 
 2- Start the web application by writing the command "npm start".
 
-3- Open a new terminal (without terminating the one previously opened) and write the command "npx playwright test" to run all the front end tests created in this project.
+3- Open a new terminal (without terminating the one previously opened) and write the command "npx playwright test" to run all the front end tests created for this project.
 
 # TEAM MEMBERS
 
