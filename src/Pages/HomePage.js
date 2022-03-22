@@ -10,13 +10,17 @@ import * as React from "react";
 function HomePage(props) {
   const [searchItem, setSearchItem] = useState("");
 
+  function notify1(n){
+    props.notifyApp(n);
+  }
+
   const getProductInfo = (info) => {
     setSearchItem(info);
   };
   return (
     <>
       <ProductSearch getValue={getProductInfo} />
-      <Products searchValue={searchItem} />
+      <Products searchValue={searchItem} notifyHomePage = {notify1}/>
     </>
   );
 }

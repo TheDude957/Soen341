@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect , useState} from "react";
 import {
   AppBar,
   Toolbar,
@@ -7,6 +7,7 @@ import {
   makeStyles,
 } from "@material-ui/core";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { Link } from "react-router-dom";
 import "../CSS/mainPage.css";
@@ -33,8 +34,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "20px",
     marginLeft: theme.spacing(5),
     "&:hover": {
-      color: "yellow",
-      borderBottom: "1px solid white",
+      color: "#0099e6",
     },
   },
 }));
@@ -44,9 +44,18 @@ const useStyles = makeStyles((theme) => ({
  * Contains the logo and name of the app
  * Contain links to other page like the sign in, Home, Cart
  */
-function Navbar() {
+function Navbar(props) {
   const classes = useStyles();
+  const [cartSize, setCartSize] = useState(0);
 
+  useEffect(() => {
+    let prev = JSON.parse(localStorage.getItem('cart'));
+    if (prev == null) prev = [];
+    setCartSize(prev.length);
+  },[props.cartBigness]);
+
+  function userType(){}
+ 
   return (
     <AppBar position="static">
       <CssBaseline />
@@ -62,17 +71,21 @@ function Navbar() {
           <Link to="/" className={classes.link}>
             Home
           </Link>
-          <Link to="/test2" className={classes.link}>
-            About
-          </Link>
+          {props.user === "visitor" ? 
           <Link to="/login" className={classes.link}>
             <AccountCircleIcon />
           </Link>
+          :
+          <Link to="/profilePage" className={classes.link}>
+            <ManageAccountsIcon/>
+          </Link>
+          }
+          
           <div className="cart-menu-btn">
             <Link to="/cart" className={classes.link}>
               <ShoppingCartOutlinedIcon />
             </Link>
-            <span className="cart-indicator">{1}</span>
+           {cartSize > 0 ? <span className="cart-indicator">{cartSize}</span> :<span/> }
           </div>
         </div>
       </Toolbar>

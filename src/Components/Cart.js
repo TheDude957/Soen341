@@ -7,10 +7,14 @@ Cart of User
 Return all items inside the Cart of the User
 */
 
-function Cart() {
+function Cart(props) {
   const [getProduct, setProducts] = useState([]);
 
   const [productsCart, setProductsCart] = useState([]);
+
+  function signalCartFunc(n) {
+    props.signalApp(n);
+  }
 
   /*
   Get the Cart of the User
@@ -44,6 +48,7 @@ function Cart() {
         .map((product) => {
           return (
             <CartProduct
+              signalCart = {signalCartFunc}
               price={product.price}
               id={product.id}
               category={product.category}

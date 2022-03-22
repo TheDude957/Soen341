@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import "../CSS/ProductCard.css";
 import { GetCurrentUserCart, RemoveItemFromCart } from "../firebaseService";
+import { CurrencyPoundOutlined } from "@mui/icons-material";
 
 /*
   Returns the item with all the information
@@ -22,9 +23,23 @@ function CartProduct(props) {
   */
 
   async function removeItem() {
+    removeFromLocalStorage();
+    props.signalCart(1);
     await RemoveItemFromCart(props.id);
     props.setProductsCart(await GetCurrentUserCart());
   }
+
+  /*
+  Function to remove item from local storage
+  */ 
+ function removeFromLocalStorage() {
+  let prev = JSON.parse(localStorage.getItem('cart'));
+  if (prev !== null) {
+  let current = prev.filter( el => el.id !== props.id );
+  localStorage.setItem("cart",JSON.stringify(current));
+  }
+ }
+
   return (
     <Card className="product">
       <CardMedia
