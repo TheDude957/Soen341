@@ -7,6 +7,7 @@ import {
   makeStyles,
 } from "@material-ui/core";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { Link } from "react-router-dom";
 import "../CSS/mainPage.css";
@@ -70,12 +71,16 @@ function Navbar(props) {
           <Link to="/" className={classes.link}>
             Home
           </Link>
-          <Link to="/test2" className={classes.link}>
-            About
-          </Link>
+          {props.user === "visitor" ? 
           <Link to="/login" className={classes.link}>
             <AccountCircleIcon />
           </Link>
+          :
+          <Link to="/profilePage" className={classes.link}>
+            <ManageAccountsIcon/>
+          </Link>
+          }
+          
           <div className="cart-menu-btn">
             <Link to="/cart" className={classes.link}>
               <ShoppingCartOutlinedIcon />
