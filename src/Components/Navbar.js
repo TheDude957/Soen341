@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect , useState} from "react";
 import {
   AppBar,
   Toolbar,
@@ -43,12 +43,18 @@ const useStyles = makeStyles((theme) => ({
  * Contains the logo and name of the app
  * Contain links to other page like the sign in, Home, Cart
  */
-function Navbar() {
+function Navbar(props) {
   const classes = useStyles();
-  useEffect(() => {
-    
-  });
+  const [cartSize, setCartSize] = useState(0);
 
+  useEffect(() => {
+    let prev = JSON.parse(localStorage.getItem('cart'));
+    if (prev == null) prev = [];
+    setCartSize(prev.length);
+  },[props.cartBigness]);
+
+  function userType(){}
+ 
   return (
     <AppBar position="static">
       <CssBaseline />
@@ -74,7 +80,7 @@ function Navbar() {
             <Link to="/cart" className={classes.link}>
               <ShoppingCartOutlinedIcon />
             </Link>
-            <span className="cart-indicator">{1}</span>
+           {cartSize > 0 ? <span className="cart-indicator">{cartSize}</span> :<span/> }
           </div>
         </div>
       </Toolbar>

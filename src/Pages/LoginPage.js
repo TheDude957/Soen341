@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
  * Includes links to Sign up or forgot password
  * @returns a form with email and password textfields. If the user in sign in successfully, he will be redirected to the main page
  */
-const LoginPage = () => {
+const LoginPage = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
@@ -26,6 +26,7 @@ const LoginPage = () => {
     SignInUser(email, password)
       .then((data) => {
         console.log("You are logged in!");
+        props.SetSignIn();
         navigate("/");
         setEmail("");
         setPassword("");

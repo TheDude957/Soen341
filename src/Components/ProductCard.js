@@ -13,8 +13,23 @@ function ProductCard(props) {
    * Returns a product with all the information
    * Styling is provided to make it look as a Card
    */
+  function addToLocalStorage(){ 
+     let prev = JSON.parse(localStorage.getItem('cart'));
+      if(prev == null) prev = [];
+      prev.push(props);
+      localStorage.setItem("cart",JSON.stringify(prev));
+     
+      localStorage.setItem("cart",JSON.stringify(prev));
+     
+      
+     }
+
   async function addToCart() {
+    //localStorage.setItem(props.id, JSON.stringify(props));
+    addToLocalStorage();
+    props.notify(1);
     await AddItemToCart(props.id);
+
   }
 
   return (

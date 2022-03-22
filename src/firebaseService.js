@@ -204,6 +204,7 @@ function GetCurrentUserId() {
  * Function to add item in the Cart of the User
  */
 export async function AddItemToCart(itemId) {
+  
   let currentUser = await GetCurrentUserInformation();
   let cart = [];
 
@@ -250,4 +251,13 @@ export async function RemoveItemFromCart(itemId) {
       .update({ Cart: cart });
     resolve("Item Added");
   });
+}
+
+//returns user type
+export async function GetUserType(){
+  let currentUser = await GetCurrentUserInformation();
+  return new Promise(function (resolve, reject) {
+    resolve(currentUser.userType);
+  })
+
 }
