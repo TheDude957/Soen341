@@ -36,6 +36,11 @@ function App() {
     );
   };
 
+   function logoutUser(){
+    setUserType("visitor");
+    setUserInfo();
+  }
+
   return (
     <Router>
       <Navbar userState = {userType} cartBigness = {cartSize} user = {userType}/>
@@ -43,9 +48,9 @@ function App() {
         <Route path="/"  element={<HomePage notifyApp = {notifyCartSize} />} />
         <Route path="/about" element={<About />} />
         <Route path="/login" element={<LoginPage SetSignIn ={updateUserType} />} />
-        <Route path="/profilePage" element={<ProfilePage user = {userInfo}/>} >
+        <Route path="/profilePage" element={<ProfilePage user = {userInfo} logUserOut = {logoutUser} />} >
             <Route path="addItem"  element={<AddItem  />} />
-            <Route path="editprofile"  element={<EditProfile  />} />
+            <Route path="editprofile"  element={<EditProfile user = {userInfo} />} />
             <Route path="myproducts"  element={<MyProducts  />} />
         </Route>
         <Route path="/signup" element={<SignUp/>} />

@@ -178,6 +178,26 @@ export async function GetCurrentUserInformation() {
     }
   });
 }
+
+/**
+ * Function to edit user name and email
+ */
+export async function setCurrentUserInformation(user){
+  let currentUserId = await GetCurrentUserId();
+  firebase
+  .database()
+  .ref(`/Customer/${currentUserId}`)
+  .update(
+    {
+      'firstName' : user.firstName,
+      'lastName' : user.lastName,
+      'email' : user.email
+    }
+
+  )
+
+}
+
 /**
  * Function to get ID of current User
  */

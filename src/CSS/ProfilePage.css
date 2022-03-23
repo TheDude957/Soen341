@@ -9,6 +9,11 @@
    
   }
 
+  .float-me{
+    float: right;
+  }
+
+
   .grid-row {
     margin-top: 40px;
     display: flex;
