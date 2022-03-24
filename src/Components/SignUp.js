@@ -12,12 +12,12 @@ import Select from '@mui/material/Select';
 import { SignUpUser } from "../firebaseService";
 
 const SignUp = () =>  {
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConPassword] = useState('');
-    const [userType, setUserType] = useState('');
+    const [firstName, setFirstName] = useState();
+    const [lastName, setLastName] = useState();
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
+    const [confirmPassword, setConPassword] = useState();
+    const [userType, setUserType] = useState();
     
     const userTypes = ["", "Customer", "Seller", "Admin"];
     const [error, setError] = useState(false);
@@ -51,15 +51,15 @@ const SignUp = () =>  {
     
     let navigate = useNavigate();
     const signUp = () => {
-        SignUpUser(password, userObj)
+        SignUpUser(userObj, password)
           .then((data) => {
             console.log("You have created an account!");
-            setFirstName("");
-            setLastName("");
-            setEmail("");
-            setPassword("");
-            setUserType("");
-            setConPassword("");
+            setFirstName();
+            setLastName();
+            setEmail();
+            setPassword();
+            setUserType();
+            setConPassword();
             let path = `/login`;
             navigate(path);
           })
@@ -86,13 +86,13 @@ const SignUp = () =>  {
                         label="First Name" 
                         placeholder="First Name"
                         required
+                        style={{ paddingBottom: 10, paddingRight: 10, width: '50%'}}
+                        value={firstName}
+                        onChange={handleChangeFirstNanme}
                         error={error}
                         onClick={() => {
                             setError(false);
                           }}
-                        style={{ paddingBottom: 10, paddingRight: 10, width: '50%'}}
-                        value={firstName}
-                        onChange={handleChangeFirstNanme}
                 />
                 
                 <TextField 
@@ -102,13 +102,13 @@ const SignUp = () =>  {
                         label="Last Name" 
                         placeholder="Last Name"
                         required
+                        style={{ paddingBottom: 10, width: '50%'}}
+                        value={lastName}
+                        onChange={handleChangeLastName}
                         error={error}
                         onClick={() => {
                             setError(false);
                           }}
-                        style={{ paddingBottom: 10, width: '50%'}}
-                        value={lastName}
-                        onChange={handleChangeLastName}
                 />
                 
                 <TextField 
@@ -119,12 +119,12 @@ const SignUp = () =>  {
                         variant="outlined"
                         style={{ paddingBottom: 10, paddingRight: 10, width: '50%' }}
                         required
+                        onChange={handleChangeEmail}
+                        value={email}
                         error={error}
                         onClick={() => {
                             setError(false);
                           }}
-                        onChange={handleChangeEmail}
-                        value={email}
                         InputProps={{
                             startAdornment: (
                                 <InputAdornment position="start">
@@ -145,7 +145,7 @@ const SignUp = () =>  {
                         error={error}
                         onClick={() => {
                             setError(false);
-                          }}
+                          }} 
                         >
                             {userTypes.map((type)=>(<option>{type}</option>))}
                         </Select>
@@ -158,13 +158,13 @@ const SignUp = () =>  {
                         label="Password" 
                         placeholder="Password"
                         required
+                        style={{ paddingBottom: 10, paddingRight: 10, width: '50%' }}
+                        value={password}
+                        onChange={handleChangePassword}
                         error={error}
                         onClick={() => {
                             setError(false);
                           }}
-                        style={{ paddingBottom: 10, paddingRight: 10, width: '50%' }}
-                        value={password}
-                        onChange={handleChangePassword}
                         helperText={
                             error ? "Information missing. Please try again!" : ""
                         }
@@ -183,13 +183,13 @@ const SignUp = () =>  {
                         label="Confirm Password" 
                         placeholder="Confirm Passowrd"
                         required
-                        error={error}
-                        onClick={() => {
-                            setError(false);
-                          }}
                         style={{ paddingBottom: 10, width: '50%' }}
                         value={confirmPassword}
                         onChange={handleChangeConfirmPassword}
+                        error={error}
+                        onClick={() => {
+                            setError(false);
+                        }}
                         InputProps={{
                             startAdornment: (
                                 <InputAdornment position="start">

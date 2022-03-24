@@ -28,7 +28,7 @@ export const SignOutUser = () => {
   });
 };
 
-export const SignUpUser = (password, user) => {
+export const SignUpUser = (user, password) => {
   return new Promise(function (resolve, reject) {
     firebase
       .database()
