@@ -41,24 +41,54 @@ function Cart(props) {
     getUserCart();
   }, []);
 
+  function loggedInUserCart() {
+    return (
+      <div className="products">
+        {getProduct
+          .filter((product) => productsCart.includes(product.id))
+          .map((product) => {
+            return (
+              <CartProduct
+                signalCart = {signalCartFunc}
+                price={product.price}
+                id={product.id}
+                category={product.category}
+                name={product.name}
+                description={product.description}
+                picture={product.picture}
+                setProductsCart={setProductsCart}
+              ></CartProduct>
+            );
+          })}
+      </div>
+    );
+  }
+
+  function visitorCart() {
+    let prev = JSON.parse(localStorage.getItem('cart'));
+    if (prev == null) prev = [];
+
+    return (
+      prev.map((product) => {
+        return (
+          <CartProduct
+            signalCart = {signalCartFunc}
+            price={product.price}
+            id={product.id}
+            category={product.category}
+            name={product.name}
+            description={product.description}
+            picture={product.picture}
+            setProductsCart={setProductsCart}
+          ></CartProduct>
+        );
+      })
+    );
+  }
+
   return (
     <div className="products">
-      {getProduct
-        .filter((product) => productsCart.includes(product.id))
-        .map((product) => {
-          return (
-            <CartProduct
-              signalCart = {signalCartFunc}
-              price={product.price}
-              id={product.id}
-              category={product.category}
-              name={product.name}
-              description={product.description}
-              picture={product.picture}
-              setProductsCart={setProductsCart}
-            ></CartProduct>
-          );
-        })}
+      {props.user == "visitor" ? visitorCart() : loggedInUserCart()}
     </div>
   );
 }

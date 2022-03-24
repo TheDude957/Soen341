@@ -61,6 +61,7 @@ const AddItem = () => {
       }, 3000);
     }
   };
+
   /*
 Upload a function in firebase storage
  */

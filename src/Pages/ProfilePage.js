@@ -2,7 +2,7 @@ import "../CSS/ProfilePage.css";
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { SignOutUser } from "../firebaseService"
+import { SignOutUser , getCurrentID } from "../firebaseService"
 import {  Link, Outlet, useNavigate} from "react-router-dom";
 
 
@@ -13,7 +13,10 @@ const navigate = useNavigate();
 function logout() {
     SignOutUser()
     .then( () => {
+        localStorage.removeItem("cart");
+        props.cart();
         props.logUserOut();
+        getCurrentID().then((v) => {alert(v)});
         alert("You have signed out successfully");
         navigate("/");
     }

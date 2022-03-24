@@ -10,6 +10,7 @@ import ProfilePage from "./Pages/ProfilePage";
 import AddItem from "./Components/AddItem.js";
 import MyProducts from "./Components/MyProducts";
 import EditProfile from "./Components/EditProfile";
+import ProfileDash from "./Components/ProfileDash";
 import { GetCurrentUserInformation } from "./firebaseService";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -48,13 +49,14 @@ function App() {
         <Route path="/"  element={<HomePage notifyApp = {notifyCartSize} />} />
         <Route path="/about" element={<About />} />
         <Route path="/login" element={<LoginPage SetSignIn ={updateUserType} />} />
-        <Route path="/profilePage" element={<ProfilePage user = {userInfo} logUserOut = {logoutUser} />} >
+        <Route path="/profilePage" element={<ProfilePage user = {userInfo} logUserOut = {logoutUser} cart = {notifyCartSize}/>} >
+            <Route index element={<ProfileDash user = {userInfo} />} />
             <Route path="addItem"  element={<AddItem  />} />
             <Route path="editprofile"  element={<EditProfile user = {userInfo} />} />
             <Route path="myproducts"  element={<MyProducts  />} />
         </Route>
         <Route path="/signup" element={<SignUp/>} />
-        <Route path="/cart" element={<Cart signalApp = {notifyCartSize} />} />
+        <Route path="/cart" element={<Cart signalApp = {notifyCartSize} user = {userType}/>} />
       </Routes>
     </Router>
   );
