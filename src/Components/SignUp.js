@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {TextField, Button} from '@material-ui/core';
+import {TextField, Button} from "@material-ui/core";
 import Grid from "@mui/material/Grid";
 import { Link, useNavigate } from "react-router-dom";
 import Paper from "@mui/material/Paper";
@@ -7,9 +7,9 @@ import Typography from "@mui/material/Typography";
 import MailIcon from "@mui/icons-material/Mail";
 import LockIcon from "@mui/icons-material/Lock";
 import InputAdornment from "@mui/material/InputAdornment";
-import InputLabel from '@mui/material/InputLabel';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import InputLabel from "@mui/material/InputLabel";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 import { SignUpUser } from "../firebaseService";
 
 const SignUp = () =>  {
