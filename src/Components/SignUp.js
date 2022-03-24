@@ -22,7 +22,7 @@ const SignUp = () =>  {
     const userTypes = ["", "Customer", "Seller", "Admin"];
     const [error, setError] = useState(false);
 
-    const handleChangeFirstNanme = (event) => {
+    const handleChangeFirstName = (event) => {
         setFirstName(event.target.value);
     };
     const handleChangeLastName = (event) => {
@@ -88,7 +88,7 @@ const SignUp = () =>  {
                         required
                         style={{ paddingBottom: 10, paddingRight: 10, width: '50%'}}
                         value={firstName}
-                        onChange={handleChangeFirstNanme}
+                        onChange={handleChangeFirstName}
                         error={error}
                         onClick={() => {
                             setError(false);
