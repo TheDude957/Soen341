@@ -9,6 +9,7 @@ import LockIcon from "@mui/icons-material/Lock";
 import InputAdornment from "@mui/material/InputAdornment";
 import React, { useState } from "react";
 import { SignInUser } from "../firebaseService";
+import { useNavigate } from "react-router-dom";
 
 
 const LoginPage = () => {
