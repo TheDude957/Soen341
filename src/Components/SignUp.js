@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import {Grid, TextField, Button} from '@material-ui/core';
+import {TextField, Button} from '@material-ui/core';
+import Grid from "@mui/material/Grid";
 import { Link, useNavigate } from "react-router-dom";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
