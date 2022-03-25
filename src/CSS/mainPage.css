@@ -50,3 +50,21 @@
   display: flex;
   align-items: center;
 }
+
+.cart-menu-btn {
+  position: relative;
+}
+
+.cart-menu-btn .cart-indicator {
+  width: 18px;
+  background-color: #e00a02;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 650;
+  position: absolute;
+  top: -13px;
+  right: -8px;
+  display: flex;
+  justify-content: center;
+}

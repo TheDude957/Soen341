@@ -8,27 +8,50 @@ import MailIcon from "@mui/icons-material/Mail";
 import LockIcon from "@mui/icons-material/Lock";
 import InputAdornment from "@mui/material/InputAdornment";
 import React, { useState } from "react";
-import { SignInUser } from "../firebaseService";
+import { SignInUser , AddItemToCart } from "../firebaseService";
+import { useNavigate } from "react-router-dom";
 
-
-const LoginPage = () => {
+/**
+ * Sign In page
+ * Includes links to Sign up or forgot password
+ * @returns a form with email and password textfields. If the user in sign in successfully, he will be redirected to the main page
+ */
+const LoginPage = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
-
+  const navigate = useNavigate();
   const btnstyle = { margin: "15px 0" };
   const signIn = () => {
     SignInUser(email, password)
       .then((data) => {
         console.log("You are logged in!");
+        props.SetSignIn();
+        transferLS2Cart();
+        navigate("/");
         setEmail("");
         setPassword("");
+        
       })
       .catch((error) => {
         console.log("ERROR");
         setError(true);
       });
   };
+
+    /**
+   * A function to transfer items from the local storage to the user cart if there is any
+   */
+  function transferLS2Cart() {
+    let prev = JSON.parse(localStorage.getItem('cart'));
+    if (prev !== null){
+      prev.forEach( (product) => {
+        AddItemToCart(product.id)
+      })
+    
+    }
+  }
+
   return (
     <Grid>
       <Paper
@@ -95,7 +118,6 @@ const LoginPage = () => {
           style={btnstyle}
           fullWidth
           onClick={signIn}
-
         >
           Sign in
         </Button>
@@ -104,9 +126,7 @@ const LoginPage = () => {
             <Link to="#">Forgot password</Link>
           </Typography>
           <Link to="/signup">
-          <Typography>
-            New account
-          </Typography>
+            <Typography>New account</Typography>
           </Link>
         </Grid>
       </Paper>

@@ -1,5 +1,33 @@
 import { firebase } from "./Setup";
+/**
+ * This page contains all the functions related to firebase
+ */
 
+export const getCurrentID = () => {
+  alert("yoo");
+  let val = 0; 
+  return new Promise(function (resolve, reject) {
+    firebase
+    .database()
+    .ref("/CurrentIDIssue")
+    .once("value")
+    .then((value) => {
+      val = value.val() 
+      firebase
+      .database()
+      .ref("/CurrentIDIssue")
+      .update(val + 1);
+      alert("yo Im being resolved ");
+      resolve(val);
+    });
+  })
+}
+
+
+
+/**
+ * Sign in function
+ */
 export const SignInUser = (email, passsword) => {
   return new Promise(function (resolve, reject) {
     firebase
@@ -14,6 +42,9 @@ export const SignInUser = (email, passsword) => {
   });
 };
 
+/**
+ * Sign out function
+ */
 export const SignOutUser = () => {
   return new Promise(function (resolve, reject) {
     firebase
@@ -28,6 +59,9 @@ export const SignOutUser = () => {
   });
 };
 
+/**
+ * Sign up function
+ */
 export const SignUpUser = (user, password) => {
   return new Promise(function (resolve, reject) {
     firebase
@@ -42,6 +76,9 @@ export const SignUpUser = (user, password) => {
   });
 };
 
+/**
+ * Function to search item in database
+ */
 export function searchProduct(string) {
   console.log("in search product method");
   // first search by name
@@ -96,12 +133,9 @@ export function searchProduct(string) {
   });
 }
 
-// snapshot.forEach(function (childSnapshot) {
-//   var data = childSnapshot.val();
-//   if (data.category === string)
-//     products = pushProduct2Array(products, childSnapshot.key, data);
-// });
-
+/**
+ * Function to add a product to the database
+ */
 export function addProduct(product) {
   firebase.database().ref("/product").push({
     name: product.name,
@@ -113,7 +147,9 @@ export function addProduct(product) {
   });
 }
 
-// a function to retrieve all products from store
+/**
+ * FunctionAdd to retrieve all products from store
+ */
 export function getProducts() {
   return new Promise(function (resolve, reject) {
     let products = [];
@@ -141,4 +177,129 @@ export function getProducts() {
         reject(error);
       });
   });
+}
+
+/**
+ * Function to get all information of current User
+ */
+export async function GetCurrentUserInformation() {
+  let currentUser;
+  let currentUserId = await GetCurrentUserId();
+  return new Promise(function (resolve, reject) {
+    if (currentUserId !== null) {
+      firebase
+        .database()
+        .ref(`/Customer/${currentUserId}`)
+        .once("value")
+        .then((snapshot) => {
+          currentUser = snapshot.val();
+          resolve(currentUser || null);
+        });
+    } else {
+      return null;
+    }
+  });
+}
+
+/**
+ * Function to edit user name and email
+ */
+export async function setCurrentUserInformation(user){
+  let currentUserId = await GetCurrentUserId();
+  firebase
+  .database()
+  .ref(`/Customer/${currentUserId}`)
+  .update(
+    {
+      'firstName' : user.firstName,
+      'lastName' : user.lastName,
+      'email' : user.email
+    }
+
+  )
+
+}
+
+/**
+ * Function to get ID of current User
+ */
+function GetCurrentUserId() {
+  let currentUserId;
+  let currentUserEmail = firebase.auth().currentUser.email;
+
+  return new Promise(function (resolve, reject) {
+    firebase
+      .database()
+      .ref("/Customer/")
+      .once("value")
+      .then((snapshot) => {
+        snapshot.forEach(function (childSnapshot) {
+          if (childSnapshot.val().email === currentUserEmail) {
+            currentUserId = childSnapshot.key;
+          }
+        });
+        resolve(currentUserId || null);
+      });
+  });
+}
+/**
+ * Function to add item in the Cart of the User
+ */
+export async function AddItemToCart(itemId) {
+  
+  let currentUser = await GetCurrentUserInformation();
+  let cart = [];
+
+  if (currentUser.Cart !== undefined) {
+    cart.push(...Object.values(currentUser.Cart));
+  }
+  if (!cart.includes(itemId)) {
+    cart.push(itemId);
+  }
+  return new Promise(function (resolve, reject) {
+    firebase
+      .database()
+      .ref(`/Customer/-MyJX0pgxGEfpkZjOPGD/`)
+      .update({ Cart: cart });
+
+    resolve("Item Added");
+  });
+}
+/**
+ * Function to get the current User Cart
+ */
+export async function GetCurrentUserCart() {
+  let currentUser = await GetCurrentUserInformation();
+  return new Promise(function (resolve, reject) {
+    resolve(currentUser.Cart || "");
+  });
+}
+/**
+ * Function to remove all an item from the cart of the user
+ */
+export async function RemoveItemFromCart(itemId) {
+  let currentUser = await GetCurrentUserInformation();
+  let cart = [];
+
+  cart.push(...Object.values(currentUser.Cart));
+  cart.splice(
+    cart.findIndex((items) => items === itemId),
+    1
+  );
+  return new Promise(function (resolve, reject) {
+    firebase
+      .database()
+      .ref(`/Customer/-MyJX0pgxGEfpkZjOPGD/`)
+      .update({ Cart: cart });
+    resolve("Item Added");
+  });
+}
+
+//returns user type
+export async function GetUserType(){
+  let currentUser = await GetCurrentUserInformation();
+  return new Promise(function (resolve, reject) {
+    resolve(currentUser.userType);
+  })
+
 }
