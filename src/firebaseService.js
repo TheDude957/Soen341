@@ -3,6 +3,28 @@ import { firebase } from "./Setup";
  * This page contains all the functions related to firebase
  */
 
+export const getCurrentID = () => {
+  alert("yoo");
+  let val = 0; 
+  return new Promise(function (resolve, reject) {
+    firebase
+    .database()
+    .ref("/CurrentIDIssue")
+    .once("value")
+    .then((value) => {
+      val = value.val() 
+      firebase
+      .database()
+      .ref("/CurrentIDIssue")
+      .update(val + 1);
+      alert("yo Im being resolved ");
+      resolve(val);
+    });
+  })
+}
+
+
+
 /**
  * Sign in function
  */
@@ -178,6 +200,26 @@ export async function GetCurrentUserInformation() {
     }
   });
 }
+
+/**
+ * Function to edit user name and email
+ */
+export async function setCurrentUserInformation(user){
+  let currentUserId = await GetCurrentUserId();
+  firebase
+  .database()
+  .ref(`/Customer/${currentUserId}`)
+  .update(
+    {
+      'firstName' : user.firstName,
+      'lastName' : user.lastName,
+      'email' : user.email
+    }
+
+  )
+
+}
+
 /**
  * Function to get ID of current User
  */

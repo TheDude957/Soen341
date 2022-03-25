@@ -54,7 +54,7 @@ function Navbar(props) {
     setCartSize(prev.length);
   },[props.cartBigness]);
 
-  function userType(){}
+ 
  
   return (
     <AppBar position="static">
@@ -87,6 +87,9 @@ function Navbar(props) {
             </Link>
            {cartSize > 0 ? <span className="cart-indicator">{cartSize}</span> :<span/> }
           </div>
+
+
+
         </div>
       </Toolbar>
     </AppBar>

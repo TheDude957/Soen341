@@ -8,7 +8,7 @@ import MailIcon from "@mui/icons-material/Mail";
 import LockIcon from "@mui/icons-material/Lock";
 import InputAdornment from "@mui/material/InputAdornment";
 import React, { useState } from "react";
-import { SignInUser } from "../firebaseService";
+import { SignInUser , AddItemToCart } from "../firebaseService";
 import { useNavigate } from "react-router-dom";
 
 /**
@@ -27,15 +27,30 @@ const LoginPage = (props) => {
       .then((data) => {
         console.log("You are logged in!");
         props.SetSignIn();
+        transferLS2Cart();
         navigate("/");
         setEmail("");
         setPassword("");
+        
       })
       .catch((error) => {
         console.log("ERROR");
         setError(true);
       });
   };
+
+    /**
+   * A function to transfer items from the local storage to the user cart if there is any
+   */
+  function transferLS2Cart() {
+    let prev = JSON.parse(localStorage.getItem('cart'));
+    if (prev !== null){
+      prev.forEach( (product) => {
+        AddItemToCart(product.id)
+      })
+    
+    }
+  }
 
   return (
     <Grid>

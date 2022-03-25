@@ -25,7 +25,7 @@ function ProductCard(props) {
      }
 
   async function addToCart() {
-    //localStorage.setItem(props.id, JSON.stringify(props));
+
     addToLocalStorage();
     props.notify(1);
     await AddItemToCart(props.id);
