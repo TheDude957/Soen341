@@ -16,7 +16,7 @@ function logout() {
         localStorage.removeItem("cart");
         props.cart();
         props.logUserOut();
-        getCurrentID().then((v) => {alert(v)});
+        //getCurrentID().then((v) => {alert(v)});
         alert("You have signed out successfully");
         navigate("/");
     }

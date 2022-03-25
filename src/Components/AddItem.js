@@ -81,7 +81,7 @@ Upload a function in firebase storage
           addProduct({
             name: title,
             price: price,
-            id: 10,
+            id: Math.random()*1100,
             category: category,
             picture: url,
             description: description,
