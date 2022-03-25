@@ -41,6 +41,10 @@ function Cart(props) {
     getUserCart();
   }, []);
 
+
+  /**
+   * Function returns jsx for the items found in the users cart stored in storage
+   */
   function loggedInUserCart() {
     return (
       <div className="products">
@@ -63,7 +67,10 @@ function Cart(props) {
       </div>
     );
   }
-
+/**
+ * 
+ * @returns Function generates jsx for items in the local storage
+ */
   function visitorCart() {
     let prev = JSON.parse(localStorage.getItem('cart'));
     if (prev == null) prev = [];
@@ -86,6 +93,7 @@ function Cart(props) {
     );
   }
 
+  // Depending whether user is signed in or not it generates the appropriate cart items
   return (
     <div className="products">
       {props.user == "visitor" ? visitorCart() : loggedInUserCart()}

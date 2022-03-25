@@ -24,6 +24,12 @@ function ProductCard(props) {
       
      }
 
+
+     /**
+      * adds product to locaSrorage
+      * notifies commponent above it about cart state change
+      * adds item to user cart if logged in
+      */
   async function addToCart() {
 
     addToLocalStorage();
