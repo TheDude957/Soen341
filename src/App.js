@@ -7,6 +7,7 @@ import Navbar from "./Components/Navbar";
 import SignUp from "./Components/SignUp";
 import LoginPage from "./Pages/LoginPage";
 import ProfilePage from "./Pages/ProfilePage";
+import PurchasePage from "./Pages/PurchasePage"
 import AddItem from "./Components/AddItem.js";
 import MyProducts from "./Components/MyProducts";
 import EditProfile from "./Components/EditProfile";
@@ -57,6 +58,7 @@ function App() {
         </Route>
         <Route path="/signup" element={<SignUp/>} />
         <Route path="/cart" element={<Cart signalApp = {notifyCartSize} user = {userType}/>} />
+        <Route path="/purchasepage" element={<PurchasePage/>} />
       </Routes>
     </Router>
   );
