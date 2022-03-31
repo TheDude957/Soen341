@@ -22,6 +22,7 @@ const SignUp = () =>  {
     
     const userTypes = ["", "Customer", "Seller", "Admin"];
     const [error, setError] = useState(false);
+    const [error2, setError2] = useState(false);
 
     const handleChangeFirstName = (event) => {
         setFirstName(event.target.value);
@@ -159,7 +160,7 @@ const SignUp = () =>  {
                         label="Password" 
                         placeholder="Password"
                         required
-                        style={{ paddingBottom: 10, paddingRight: 10, width: '50%' }}
+                        style={{ paddingBottom: 10, /*paddingRight: 10,*/ width: '100%' }}
                         value={password}
                         onChange={handleChangePassword}
                         error={error}
@@ -178,7 +179,8 @@ const SignUp = () =>  {
                         }}
                 />
 
-                <TextField 
+                {/*<TextField 
+                        id="confirmPassword" 
                         type="password" 
                         variant="outlined" 
                         label="Confirm Password" 
@@ -190,7 +192,7 @@ const SignUp = () =>  {
                         error={error}
                         onClick={() => {
                             setError(false);
-                        }}
+                          }}
                         InputProps={{
                             startAdornment: (
                                 <InputAdornment position="start">
@@ -198,7 +200,7 @@ const SignUp = () =>  {
                                 </InputAdornment>
                             ),
                         }}
-                />
+                    />*/}
 
                 <Grid align="center" style={{ paddingBottom: 10}}>
                     <Button 
