@@ -217,10 +217,9 @@ const SignUp = () =>  {
                         <Link to="/login">Already have an account ?</Link>
                     </Typography>
                 </Grid>
-
-            </Paper>
-        </Grid>
-    )
-}
+          </Paper>
+     </Grid>
+  );
+};
 
 export default SignUp;
