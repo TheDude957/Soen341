@@ -44,7 +44,7 @@ Run our client-side tests using [Playwrigt Inspector](https://playwright.dev/doc
 
 Liliane Nguemtchouang/liliane-ng : UI designer </br>
 Shayan Khalkhali/shakhal350 : Minutes </br>
-Titouans Sablé/Resident-png : Verification </br>
+Titouan Sablé/Resident-png : Verification </br>
 Abdoullah Ayadi/tenzabest : Tech lead </br>
 Julian Lussier/TheDude957 : Scrum master </br>
 

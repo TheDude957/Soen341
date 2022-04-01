@@ -23,13 +23,17 @@ function App() {
 
   //user type visitor/customer/seller/admin
   const [userType, setUserType] = useState("visitor");
+  // state to keep track of changes to cart size
   const [cartSize, setCartSize] = useState(0);
+  //current user information 
   const [userInfo, setUserInfo] = useState();
 
   function notifyCartSize(n) {
     setCartSize((cartSize + n)%2);
   }
-  
+  /**
+   * Awaits user information from firebase then sets useState to user object
+   */
   async function updateUserType() {
     await GetCurrentUserInformation().then((user) =>{
       setUserType(user.userType);
@@ -38,6 +42,10 @@ function App() {
     );
   };
 
+  /**
+   * sets user state to visitor
+   * and user info to undefined
+   */
    function logoutUser(){
     setUserType("visitor");
     setUserInfo();

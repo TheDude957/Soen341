@@ -10,16 +10,20 @@ import {  Link, Outlet, useNavigate} from "react-router-dom";
 function ProfilePage(props) {
 const navigate = useNavigate();
     
+/**
+ * logout function
+ * 
+ */
 function logout() {
-    SignOutUser()
+    SignOutUser() // sign out from firebase
     .then( () => {
-        localStorage.removeItem("cart");
-        props.cart();
-        props.logUserOut();
+        localStorage.removeItem("cart"); // empty local storage
+        props.cart(); // notify App of cart update
+        props.logUserOut(); // notify App of loggedin state change
         //getCurrentID().then((v) => {alert(v)});
         alert("You have signed out successfully");
-        navigate("/");
-    }
+        navigate("/"); // navigate to homepage
+    } 
         
     ); 
 }

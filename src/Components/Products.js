@@ -34,6 +34,8 @@ function Products(props) {
         });
 
     }
+
+    // clean up function to clean array of redundant products
     return () => {
       if (props.searchValue === "") {
         setIsSearched(false);
