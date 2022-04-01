@@ -4,7 +4,6 @@ import { firebase } from "./Setup";
  */
 
 export const getCurrentID = () => {
-  alert("yoo");
   let val = 0; 
   return new Promise(function (resolve, reject) {
     firebase
@@ -17,7 +16,6 @@ export const getCurrentID = () => {
       .database()
       .ref("/CurrentIDIssue")
       .update(val + 1);
-      alert("yo Im being resolved ");
       resolve(val);
     });
   })
@@ -66,7 +64,7 @@ export const SignUpUser = (user, password) => {
   return new Promise(function (resolve, reject) {
     firebase
       .database()
-      .ref(user.type)
+      .ref("users")
       .push(user)
       .then(() => {
         firebase.auth().createUserWithEmailAndPassword(user.email, password);
@@ -88,7 +86,7 @@ export function searchProduct(string) {
     let products = [];
     firebase
       .database()
-      .ref("/product")
+      .ref("/products")
       .once("value")
       .then((snapshot) => {
         // searching by name
@@ -137,7 +135,7 @@ export function searchProduct(string) {
  * Function to add a product to the database
  */
 export function addProduct(product) {
-  firebase.database().ref("/product").push({
+  firebase.database().ref("/products").push({
     name: product.name,
     price: product.price,
     id: product.id,
@@ -155,7 +153,7 @@ export function getProducts() {
     let products = [];
     firebase
       .database()
-      .ref("/product")
+      .ref("/products")
       .once("value")
       .then((snapshot) => {
         snapshot.forEach(function (childSnapshot) {
@@ -189,7 +187,7 @@ export async function GetCurrentUserInformation() {
     if (currentUserId !== null) {
       firebase
         .database()
-        .ref(`/Customer/${currentUserId}`)
+        .ref(`/users/user_${currentUserId}`)
         .once("value")
         .then((snapshot) => {
           currentUser = snapshot.val();
@@ -208,7 +206,7 @@ export async function setCurrentUserInformation(user){
   let currentUserId = await GetCurrentUserId();
   firebase
   .database()
-  .ref(`/Customer/${currentUserId}`)
+  .ref(`/users/user_${currentUserId}`)
   .update(
     {
       'firstName' : user.firstName,
@@ -230,12 +228,12 @@ function GetCurrentUserId() {
   return new Promise(function (resolve, reject) {
     firebase
       .database()
-      .ref("/Customer/")
+      .ref("/users/")
       .once("value")
       .then((snapshot) => {
         snapshot.forEach(function (childSnapshot) {
           if (childSnapshot.val().email === currentUserEmail) {
-            currentUserId = childSnapshot.key;
+            currentUserId = childSnapshot.val().id;
           }
         });
         resolve(currentUserId || null);
@@ -250,8 +248,8 @@ export async function AddItemToCart(itemId) {
   let currentUser = await GetCurrentUserInformation();
   let cart = [];
 
-  if (currentUser.Cart !== undefined) {
-    cart.push(...Object.values(currentUser.Cart));
+  if (currentUser.cart !== undefined) {
+    cart.push(...Object.values(currentUser.cart));
   }
   if (!cart.includes(itemId)) {
     cart.push(itemId);
@@ -259,8 +257,8 @@ export async function AddItemToCart(itemId) {
   return new Promise(function (resolve, reject) {
     firebase
       .database()
-      .ref(`/Customer/-MyJX0pgxGEfpkZjOPGD/`)
-      .update({ Cart: cart });
+      .ref(`/users/user_${currentUser.id}`)
+      .update({ cart: cart });
 
     resolve("Item Added");
   });
@@ -271,7 +269,7 @@ export async function AddItemToCart(itemId) {
 export async function GetCurrentUserCart() {
   let currentUser = await GetCurrentUserInformation();
   return new Promise(function (resolve, reject) {
-    resolve(currentUser.Cart || "");
+    resolve(currentUser.cart || "");
   });
 }
 /**
@@ -281,7 +279,7 @@ export async function RemoveItemFromCart(itemId) {
   let currentUser = await GetCurrentUserInformation();
   let cart = [];
 
-  cart.push(...Object.values(currentUser.Cart));
+  cart.push(...Object.values(currentUser.cart));
   cart.splice(
     cart.findIndex((items) => items === itemId),
     1
@@ -289,8 +287,8 @@ export async function RemoveItemFromCart(itemId) {
   return new Promise(function (resolve, reject) {
     firebase
       .database()
-      .ref(`/Customer/-MyJX0pgxGEfpkZjOPGD/`)
-      .update({ Cart: cart });
+      .ref(`/users/user_${currentUser.id}`)
+      .update({ cart: cart });
     resolve("Item Added");
   });
 }
@@ -303,3 +301,5 @@ export async function GetUserType(){
   })
 
 }
+
+
