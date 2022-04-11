@@ -15,6 +15,8 @@ import { useState , useEffect } from 'react';
 function ProfileDash(props) {
     const [userInfo, setUserInfo] = useState({});
 
+
+    // On each page load, component fetches user information
     useEffect(() => {
         GetCurrentUserInformation().then((user) =>{
           setUserInfo(user);
@@ -23,7 +25,7 @@ function ProfileDash(props) {
         );
       },[]);
 
-      
+      // styling for table
       const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
           backgroundColor: theme.palette.common.black,
@@ -49,6 +51,7 @@ function ProfileDash(props) {
         return { attribute, data };
       }
       
+      // setting user data for each row of table
       const rows = [
         createData('First Name', userInfo.firstName),
         createData('Last Name', userInfo.lastName),

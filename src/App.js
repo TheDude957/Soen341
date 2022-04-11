@@ -7,6 +7,7 @@ import Navbar from "./Components/Navbar";
 import SignUp from "./Components/SignUp";
 import LoginPage from "./Pages/LoginPage";
 import ProfilePage from "./Pages/ProfilePage";
+import PurchasePage from "./Pages/PurchasePage"
 import AddItem from "./Components/AddItem.js";
 import MyProducts from "./Components/MyProducts";
 import EditProfile from "./Components/EditProfile";
@@ -22,13 +23,17 @@ function App() {
 
   //user type visitor/customer/seller/admin
   const [userType, setUserType] = useState("visitor");
+  // state to keep track of changes to cart size
   const [cartSize, setCartSize] = useState(0);
+  //current user information 
   const [userInfo, setUserInfo] = useState();
 
   function notifyCartSize(n) {
     setCartSize((cartSize + n)%2);
   }
-  
+  /**
+   * Awaits user information from firebase then sets useState to user object
+   */
   async function updateUserType() {
     await GetCurrentUserInformation().then((user) =>{
       setUserType(user.userType);
@@ -37,6 +42,10 @@ function App() {
     );
   };
 
+  /**
+   * sets user state to visitor
+   * and user info to undefined
+   */
    function logoutUser(){
     setUserType("visitor");
     setUserInfo();
@@ -57,6 +66,7 @@ function App() {
         </Route>
         <Route path="/signup" element={<SignUp/>} />
         <Route path="/cart" element={<Cart signalApp = {notifyCartSize} user = {userType}/>} />
+        <Route path="/purchasepage" element={<PurchasePage/>} />
       </Routes>
     </Router>
   );

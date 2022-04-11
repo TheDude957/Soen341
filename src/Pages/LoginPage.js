@@ -22,13 +22,15 @@ const LoginPage = (props) => {
   const [error, setError] = useState(false);
   const navigate = useNavigate();
   const btnstyle = { margin: "15px 0" };
+
+
   const signIn = () => {
     SignInUser(email, password)
       .then((data) => {
         console.log("You are logged in!");
-        props.SetSignIn();
-        transferLS2Cart();
-        navigate("/");
+        props.SetSignIn();  // notify App component that user has logged in
+        transferLS2Cart(); // transer local cart items to storage cart
+        navigate("/");  // navigate to home page
         setEmail("");
         setPassword("");
         
