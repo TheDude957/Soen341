@@ -66,7 +66,7 @@ export const SignUpUser = (user, password) => {
   return new Promise(function (resolve, reject) {
     firebase
       .database()
-      .ref(user.type)
+      .ref(user.userType)
       .push(user)
       .then(() => {
         firebase.auth().createUserWithEmailAndPassword(user.email, password);

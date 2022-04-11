@@ -56,7 +56,7 @@ const LoginPage = (props) => {
     <Grid>
       <Paper
         elevation={10}
-        style={{ padding: 30, width: 500, margin: "200px auto" }}
+        style={{ padding: 30, width: 500, margin: "100px auto" }}
       >
         <Grid align="center" style={{ paddingBottom: 30 }}>
           <h2>Login</h2>
