@@ -1,8 +1,9 @@
 import CartProduct from "./CartProduct";
 import { useEffect, useState } from "react";
 import { getProducts, GetCurrentUserCart } from "../firebaseService";
-import { Link } from "react-router-dom";
-import { Button } from "bootstrap";
+import Button from "@mui/material/Button";
+import { useNavigate } from "react-router-dom";
+
 
 /*
 Cart of User
@@ -14,6 +15,11 @@ function Cart(props) {
 
 	const [productsCart, setProductsCart] = useState([]);
 
+	let navigate = useNavigate();
+	const routeChange = () => {
+		let path = `/purchasepage`;
+		navigate(path);
+	};
 	function signalCartFunc(n) {
 		props.signalApp(n);
 	}
@@ -95,8 +101,8 @@ function Cart(props) {
 	return (
 		<div className="products">
 			{props.user == "visitor" ? visitorCart() : loggedInUserCart()}
-			<Button to="/purchasepage">
-				<h1>Checkout</h1>
+			<Button color="primary" variant="contained" onClick={routeChange}>
+				<h3>Proceed to Checkout</h3>
 			</Button>
 		</div>
 	);
