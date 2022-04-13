@@ -20,7 +20,7 @@ function HomePage(props) {
   return (
     <>
       <ProductSearch getValue={getProductInfo} />
-      <Products searchValue={searchItem} notifyHomePage = {notify1}/>
+      <Products searchValue={searchItem} notifyHomePage = {notify1} getCurrProd = {props.currProduct}/>
     </>
   );
 }

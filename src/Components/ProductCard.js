@@ -7,21 +7,28 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import "../CSS/ProductCard.css";
 import { AddItemToCart } from "../firebaseService";
+import { useNavigate } from "react-router-dom";
 function ProductCard(props) {
+  const navigate = useNavigate();
   /**
    * Function to add an item to the Cart
    * Returns a product with all the information
    * Styling is provided to make it look as a Card
    */
   function addToLocalStorage(){ 
+    let bool = false;
      let prev = JSON.parse(localStorage.getItem('cart'));
       if(prev == null) prev = [];
+      for (var i = 0; i < prev.length; i++){
+        if (prev[i].id == props.id)
+          bool = true;
+      }
+      if (!bool){
       prev.push(props);
       localStorage.setItem("cart",JSON.stringify(prev));
      
       localStorage.setItem("cart",JSON.stringify(prev));
-     
-      
+      }
      }
 
 
@@ -38,16 +45,30 @@ function ProductCard(props) {
 
   }
 
+
+  function handleClick(){
+    let user = {
+      picture : props.picture,
+      title : props.title,
+      category : props.category,
+      description : props.description,
+      price : props.price,
+      id : props.id
+    }
+    props.currProd(user);
+    navigate("/productinfo");
+  }
+
   return (
-    <Card className="product">
+    <Card className="product" onClick = {handleClick}>
       <CardMedia
         component="img"
         className="product-img"
         image={props.picture}
-        alt={props.name}
+        alt={props.title}
       />
       <CardContent style={{ padding: 0, paddingTop: 3 }}>
-        <Typography className="product-text title">{props.name}</Typography>
+        <Typography className="product-text title">{props.title}</Typography>
         <Typography className="product-text description">
           {props.description}
         </Typography>

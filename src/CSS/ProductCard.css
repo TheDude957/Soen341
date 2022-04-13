@@ -62,3 +62,17 @@
   font-size: 14px;
   font-weight: 650;
 }
+
+.title {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+.header-title {
+  align-self: center;
+}
+.btn {
+  justify-content: right;
+  
+
+}

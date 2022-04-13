@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { getProducts , searchProduct} from "../firebaseService";
 import ProductCard from "./ProductCard";
@@ -6,12 +7,13 @@ import ProductCard from "./ProductCard";
 Display all items in the store
 */
 
+
 function Products(props) {
   const [getProduct, setProducts] = useState([]);
   const [isSearched, setIsSearched] = useState(false);
   
   function notify1(n) {
-    props.notifyHomePage(n)
+    props.notifyHomePage(n);
   }
 
 
@@ -51,15 +53,19 @@ function Products(props) {
     <div className="products">
       {getProduct.map((product) => {
         return (
+          
           <ProductCard 
+            currProd = {props.getCurrProd}
+
             price={product.price}
             id={product.id}
             category={product.category}
-            name={product.name}
+            title={product.title}
             description={product.description}
             picture={product.picture}
             notify = {notify1}
           ></ProductCard>
+          
         );
       })}
     </div>

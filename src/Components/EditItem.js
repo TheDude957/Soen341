@@ -1,99 +1,80 @@
 import { Button, MenuItem, TextField } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { storage } from "../Setup";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
-import { addProduct } from "../firebaseService.js";
+import { EditProduct } from "../firebaseService.js";
 /*
 This Component is used to add an item to firebae
 Returns a form 
 */
-const AddItem = () => {
+const EditItem = ({ currentItem, setCurrentItem }) => {
   /*
  State for item information
  */
   const categories = ["Electronics", "Furniture", "Clothes", "Toys"];
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-  const [category, setCategory] = useState("");
+  const [title, setTitle] = useState(currentItem.title);
+  const [description, setDescription] = useState(currentItem.description);
+  const [price, setPrice] = useState(currentItem.price);
+  const [category, setCategory] = useState(currentItem.category);
   const [image, setImage] = useState(null);
-
-  /*
- State to track errors
- */
-  const [titleError, setTitleError] = useState(false);
-  const [descriptionError, setDescriptionError] = useState(false);
-  const [priceError, setPriceError] = useState(false);
-  const [categoryError, setCategoryError] = useState(false);
-  const [imageError, setImageError] = useState(false);
 
   /*
   Check if the form is completed before sanding the information of item to the database
   */
   const formHandler = (e) => {
     e.preventDefault();
-    title === "" ? setTitleError(true) : setTitleError(false);
-    description === "" ? setDescriptionError(true) : setDescriptionError(false);
-    price === "" || price < 1 ? setPriceError(true) : setPriceError(false);
-    category === "" ? setCategoryError(true) : setCategoryError(false);
-    image === null ? setImageError(true) : setImageError(false);
+    EditProduct({
+      title: title,
+      price: price,
+      id: currentItem.id,
+      category: category,
+      picture: currentItem.picture,
+      description: description,
+    });
+    uploadFiles(image);
 
-    if (
-      titleError === false &&
-      descriptionError === false &&
-      priceError === false &&
-      categoryError === false &&
-      imageError === false
-    ) {
-      uploadFiles(image);
-      setTitle("");
-      setDescription("");
-      setPrice("");
-      setCategory("");
-      setImage(null);
-    } else {
-      setTimeout(() => {
-        setTitleError(false);
-        setDescriptionError(false);
-        setPriceError(false);
-        setCategoryError(false);
-        setImageError(false);
-      }, 3000);
-    }
+    setTitle("");
+    setDescription("");
+    setPrice("");
+    setCategory("");
+    setImage(null);
   };
 
   /*
 Upload a function in firebase storage
  */
-  const uploadFiles = async (image) => {
+  const uploadFiles = (image) => {
     //
     if (!image) return;
+
     const storageRef = ref(storage, `Images/${image.name}`);
     const uploadTask = uploadBytesResumable(storageRef, image);
-
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {},
-      (error) => console.log(error),
-      () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-          console.log("File available at", url);
-          addProduct({
-            title: title,
-            price: price,
-            category: category,
-            picture: url,
-            description: description,
+    if (image != null) {
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {},
+        (error) => console.log(error),
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((URL) => {
+            EditProduct({
+              title: title,
+              price: price,
+              id: currentItem.id,
+              category: category,
+              picture: URL,
+              description: description,
+            });
           });
-        });
-      }
-    );
+        }
+      );
+    } else {
+    }
   };
 
   return (
     <div className="container">
       <div style={{ paddingTop: 20 }}>
-        <h1>Add Products</h1>
+        <h1>Edit Product</h1>
       </div>
       <hr></hr>
 
@@ -108,8 +89,6 @@ Upload a function in firebase storage
           placeholder="Title"
           onChange={(e) => setTitle(e.target.value)}
           value={title}
-          error={titleError}
-          helperText={titleError ? "Required" : ""}
         ></TextField>
       </div>
 
@@ -124,8 +103,6 @@ Upload a function in firebase storage
           placeholder="Description"
           onChange={(e) => setDescription(e.target.value)}
           value={description}
-          error={descriptionError}
-          helperText={descriptionError ? "Required" : ""}
         ></TextField>
       </div>
       <div style={{ paddingTop: 15 }}>
@@ -139,8 +116,6 @@ Upload a function in firebase storage
           placeholder="Price"
           onChange={(e) => setPrice(e.target.value)}
           value={price}
-          error={priceError}
-          helperText={priceError ? "Required" : ""}
         ></TextField>
       </div>
       <div style={{ paddingTop: 15 }}>
@@ -153,8 +128,6 @@ Upload a function in firebase storage
           variant="outlined"
           onChange={(e) => setCategory(e.target.value)}
           value={category}
-          error={categoryError}
-          helperText={categoryError ? "Required" : ""}
         >
           {categories.map((option) => (
             <MenuItem value={option}>{option}</MenuItem>
@@ -172,8 +145,6 @@ Upload a function in firebase storage
           onChange={(e) => {
             setImage(e.target.files[0]);
           }}
-          error={imageError}
-          helperText={imageError ? "Required" : ""}
         ></TextField>
       </div>
 
@@ -191,4 +162,4 @@ Upload a function in firebase storage
   );
 };
 
-export default AddItem;
+export default EditItem;

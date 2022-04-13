@@ -1,0 +1,54 @@
+.parent {
+	display: grid;
+	grid-template-columns: repeat(2, 500px) 50px;
+	grid-template-rows: 50px 70px 200px 100px 150px;
+	gap: 10px 10px;
+	font-size: 28px;
+	color: #3f4870;
+	font-weight: 500;
+	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.div1 {
+	grid-area: 1 / 1 / 2 / 8;
+	background-color: #ffffff;
+
+	border-radius: 10px;
+	padding: 1%;
+}
+.div2 {
+	grid-area: 2 / 1 / 4 / 5;
+	box-shadow: 2.5px -2.5px 2.5px 0px #bababa;
+	background-color: #ffffff;
+
+	border-radius: 10px;
+	max-height: min-content;
+	padding: 3%;
+}
+.div3 {
+	grid-area: 4 / 1 / 6 / 5;
+	box-shadow: 2.5px -2.5px 2.5px 0px #bababa;
+	background-color: #ffffff;
+
+	border-radius: 10px;
+	min-height: 75%;
+	padding: 3%;
+}
+.div4 {
+	grid-area: 6 / 1 / 8 / 5;
+	box-shadow: 2.5px -2.5px 2.5px 0px #bababa;
+	background-color: #ffffff;
+
+	border-radius: 10px;
+	min-height: 75%;
+	padding: 3%;
+}
+.div5 {
+	grid-area: 2 / 5 / 3 / 8;
+	box-shadow: 2.5px -2.5px 2.5px 0px #bababa;
+	background-color: #ffffff;
+
+	min-height: 750%;
+	border-radius: 10px;
+	padding: 3%;
+}

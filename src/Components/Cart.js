@@ -1,6 +1,11 @@
 import CartProduct from "./CartProduct";
 import { useEffect, useState } from "react";
 import { getProducts, GetCurrentUserCart } from "../firebaseService";
+import { useNavigate } from "react-router-dom";
+
+import { Link } from "react-router-dom";
+import { Button, Typography, Paper } from '@material-ui/core';
+import "../CSS/ProductCard.css";
 
 /*
 Cart of User
@@ -8,38 +13,43 @@ Return all items inside the Cart of the User
 */
 
 function Cart(props) {
-  const [getProduct, setProducts] = useState([]);
+	const [getProduct, setProducts] = useState([]);
 
-  const [productsCart, setProductsCart] = useState([]);
+	const [productsCart, setProductsCart] = useState([]);
 
-  function signalCartFunc(n) {
-    props.signalApp(n);
-  }
+	let navigate = useNavigate();
+	const routeChange = () => {
+		let path = `/purchasepage`;
+		navigate(path);
+	};
+	function signalCartFunc(n) {
+		props.signalApp(n);
+	}
 
-  /*
+	/*
   Get the Cart of the User
   */
-  async function getUserCart() {
-    await GetCurrentUserCart().then((cartItems) => {
-      if (cartItems !== undefined) {
-        setProductsCart(Object.values(cartItems));
-        console.log("CartItems: ", Object.values(cartItems));
-      }
-    });
-  }
+	async function getUserCart() {
+		await GetCurrentUserCart().then((cartItems) => {
+			if (cartItems !== undefined) {
+				setProductsCart(Object.values(cartItems));
+				console.log("CartItems: ", Object.values(cartItems));
+			}
+		});
+	}
 
-  useEffect(() => {
-    getProducts().then((products) => {
-      products.forEach(async (product) => {
-        setProducts((prev) => [...prev, product]);
-        console.log("Value of products : ", products);
-      });
-    });
-  }, []);
+	useEffect(() => {
+		getProducts().then((products) => {
+			products.forEach(async (product) => {
+				setProducts((prev) => [...prev, product]);
+				console.log("Value of products : ", products);
+			});
+		});
+	}, []);
 
-  useEffect(() => {
-    getUserCart();
-  }, []);
+	useEffect(() => {
+		getUserCart();
+	}, []);
 
 
   /**
@@ -74,31 +84,43 @@ function Cart(props) {
   function visitorCart() {
     let prev = JSON.parse(localStorage.getItem('cart'));
     if (prev == null) prev = [];
+	if (prev.length == 0){
+		return (<h2>Your cart is Empty! Why don't you add to it.</h2>)
+	}
 
-    return (
-      prev.map((product) => {
-        return (
-          <CartProduct
-            signalCart = {signalCartFunc}
-            price={product.price}
-            id={product.id}
-            category={product.category}
-            name={product.name}
-            description={product.description}
-            picture={product.picture}
-            setProductsCart={setProductsCart}
-          ></CartProduct>
-        );
-      })
-    );
-  }
+		return prev.map((product) => {
+			return (
+				<CartProduct
+					signalCart={signalCartFunc}
+					price={product.price}
+					id={product.id}
+					category={product.category}
+					name={product.name}
+					description={product.description}
+					picture={product.picture}
+					setProductsCart={setProductsCart}></CartProduct>
+			);
+		});
+	}
 
-  // Depending whether user is signed in or not it generates the appropriate cart items
-  return (
-    <div className="products">
-      {props.user == "visitor" ? visitorCart() : loggedInUserCart()}
-    </div>
-  );
+	return (
+		<>
+		
+		<Paper className = "title">
+			<Typography className = "header-title"> <b>Shopping Cart</b></Typography>
+
+			<Link  to="/purchasepage">
+			<Button  className = "btn" variant="outlined" color="primary"> <typography>Checkout</typography> </Button> 
+			</Link>
+		</Paper>
+			
+		<div className="products">
+			{props.user == "visitor" ? visitorCart() : loggedInUserCart()}
+			
+		</div>
+		
+		</>
+	);
 }
 
 export default Cart;
