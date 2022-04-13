@@ -65,7 +65,7 @@ const AddItem = () => {
   /*
 Upload a function in firebase storage
  */
-  const uploadFiles = (image) => {
+  const uploadFiles = async (image) => {
     //
     if (!image) return;
     const storageRef = ref(storage, `Images/${image.name}`);
@@ -79,9 +79,8 @@ Upload a function in firebase storage
         getDownloadURL(uploadTask.snapshot.ref).then((url) => {
           console.log("File available at", url);
           addProduct({
-            name: title,
+            title: title,
             price: price,
-            id: Math.random()*1100,
             category: category,
             picture: url,
             description: description,
