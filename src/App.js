@@ -15,6 +15,8 @@ import MyProducts from "./Components/MyProducts";
 import EditProfile from "./Components/EditProfile";
 import ProfileDash from "./Components/ProfileDash";
 import ProductInfo from "./Components/ProductInfo";
+import SellerItems from "./Components/SellerItems";
+import UserInfo from "./Components/UserInfo";
 import { GetCurrentUserInformation } from "./firebaseService";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -73,9 +75,10 @@ function App() {
             <Route index element={<ProfileDash user = {userInfo} />} />
             <Route path="addItem"  element={<AddItem  />} />
             <Route path="editprofile"  element={<EditProfile user = {userInfo} />} />
-            <Route path="myproducts"  element={<MyProducts  />} />
+            <Route path="myproducts"  element={<SellerItems />} />
             <Route path="seeUsers"  element={<SeeUsers  />} />
         </Route>
+        <Route path="/userInfo" element={<UserInfo/>} />
         <Route path= "/productinfo" element ={<ProductInfo notify = {notifyCartSize} product  = {productInfo}/>} />
         <Route path="/signup" element={<SignUp/>} />
         <Route path="/cart" element={<Cart signalApp = {notifyCartSize} user = {userType}/>} />

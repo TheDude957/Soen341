@@ -254,6 +254,25 @@ export async function GetCurrentUserInformation() {
   });
 }
 
+export function GetUserInformation(id) {
+  let currentUser;
+  let currentUserId = id;
+  return new Promise(function (resolve, reject) {
+    if (currentUserId !== null) {
+      firebase
+        .database()
+        .ref(`/users/user_${currentUserId}`)
+        .once("value")
+        .then((snapshot) => {
+          currentUser = snapshot.val();
+          resolve(currentUser || null);
+        });
+    } else {
+      return null;
+    }
+  });
+}
+
 export function getAllUsers() {
   let users = [];
   return new Promise(function (resolve, reject) {
