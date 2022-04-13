@@ -4,24 +4,22 @@ import { firebase } from "./Setup";
  */
 
 export const getCurrentID = () => {
-  let val = 0; 
+  let val = 0;
   return new Promise(function (resolve, reject) {
     firebase
-    .database()
-    .ref("/CurrentIDIssue")
-    .once("value")
-    .then((value) => {
-      val = value.val() 
-      firebase
       .database()
       .ref("/CurrentIDIssue")
-      .update(val + 1);
-      resolve(val);
-    });
-  })
-}
-
-
+      .once("value")
+      .then((value) => {
+        val = value.val();
+        firebase
+          .database()
+          .ref("/CurrentIDIssue")
+          .update(val + 1);
+        resolve(val);
+      });
+  });
+};
 
 /**
  * Sign in function
@@ -134,15 +132,42 @@ export function searchProduct(string) {
 /**
  * Function to add a product to the database
  */
-export function addProduct(product) {
-  firebase.database().ref("/products").push({
-    name: product.name,
-    price: product.price,
-    id: product.id,
-    category: product.category,
-    picture: product.picture,
-    description: product.description,
-  });
+export async function addProduct(product) {
+  let currentUser = await GetCurrentUserInformation();
+  let items = [];
+
+  items.push(...Object.values(currentUser.items));
+
+  firebase
+    .database()
+    .ref("numberOfItems")
+    .once("value")
+    .then((snapshot) => {
+      let numberOfItems = snapshot.val() + 1;
+      firebase
+        .database()
+        .ref("/numberOfItems")
+        .set(numberOfItems)
+        .then(() => {
+          firebase
+            .database()
+            .ref("/products")
+            .child(`pid_${numberOfItems}`)
+            .set({
+              title: product.title,
+              price: product.price,
+              id: numberOfItems,
+              category: product.category,
+              picture: product.picture,
+              description: product.description,
+            });
+          items.push(numberOfItems);
+          firebase
+            .database()
+            .ref(`/users/user_${currentUser.id}`)
+            .update({ items: items });
+        });
+    });
 }
 
 /**
@@ -161,7 +186,7 @@ export function getProducts() {
           var data = childSnapshot.val();
           products.push({
             key: key,
-            name: data.name,
+            title: data.title,
             id: data.id,
             picture: data.picture,
             price: data.price,
@@ -202,20 +227,13 @@ export async function GetCurrentUserInformation() {
 /**
  * Function to edit user name and email
  */
-export async function setCurrentUserInformation(user){
+export async function setCurrentUserInformation(user) {
   let currentUserId = await GetCurrentUserId();
-  firebase
-  .database()
-  .ref(`/users/user_${currentUserId}`)
-  .update(
-    {
-      'firstName' : user.firstName,
-      'lastName' : user.lastName,
-      'email' : user.email
-    }
-
-  )
-
+  firebase.database().ref(`/users/user_${currentUserId}`).update({
+    firstName: user.firstName,
+    lastName: user.lastName,
+    email: user.email,
+  });
 }
 
 /**
@@ -244,7 +262,6 @@ function GetCurrentUserId() {
  * Function to add item in the Cart of the User
  */
 export async function AddItemToCart(itemId) {
-  
   let currentUser = await GetCurrentUserInformation();
   let cart = [];
 
@@ -294,12 +311,61 @@ export async function RemoveItemFromCart(itemId) {
 }
 
 //returns user type
-export async function GetUserType(){
+export async function GetUserType() {
   let currentUser = await GetCurrentUserInformation();
   return new Promise(function (resolve, reject) {
     resolve(currentUser.userType);
-  })
-
+  });
 }
 
+/*
+Delete item of seller
+*/
+export async function DeleteItem(itemId) {
+  let products = await getProducts();
+  let currentUser = await GetCurrentUserInformation();
+  let items = [];
+  console.log(products);
+  items.push(...Object.values(currentUser.items));
+  items.splice(
+    items.findIndex((items) => items === itemId),
+    1
+  );
+  products.splice(
+    products.findIndex((items) => items.id === itemId),
+    1
+  );
 
+  return new Promise(function (resolve, reject) {
+    firebase.database().ref(`/products/pid_${itemId}`).remove();
+    console.log("DELETE", `  pid_${itemId}`);
+    firebase
+      .database()
+      .ref(`/users/user_${currentUser.id}`)
+      .update({ items: items });
+    resolve("Item Deleted");
+  });
+}
+
+/*
+Get the items of the seller
+*/
+export async function GetSellerProducts() {
+  let currentUser = await GetCurrentUserInformation();
+  return new Promise(function (resolve, reject) {
+    resolve(currentUser.items || "");
+  });
+}
+
+/*
+Edit item of seller
+*/
+export function EditProduct(item) {
+  firebase.database().ref(`/products/pid_${item.id}`).update({
+    category: item.category,
+    description: item.description,
+    id: item.id,
+    picture: item.picture,
+    price: item.price,
+  });
+}
