@@ -76,7 +76,6 @@ export const SignUpUser = (user, password) => {
  * Function to search item in database
  */
 export function searchProduct(string) {
-  console.log("in search product method");
   // first search by name
   // second search by category
   // search by manufacturer
@@ -90,11 +89,11 @@ export function searchProduct(string) {
         // searching by name
         snapshot.forEach(function (childSnapshot) {
           var data = childSnapshot.val();
-          if (data.name.toLowerCase() === string.toLowerCase()) {
+          if (data.title.toLowerCase() === string.toLowerCase()) {
             var key = childSnapshot.key;
             products.push({
               key: key,
-              name: data.name,
+              title: data.title,
               id: data.id,
               picture: data.picture,
               price: data.price,
@@ -103,7 +102,7 @@ export function searchProduct(string) {
             });
           }
         });
-
+        
         //checking search by category
         snapshot.forEach(function (childSnapshot) {
           var data = childSnapshot.val();
@@ -111,7 +110,7 @@ export function searchProduct(string) {
             var key = childSnapshot.key;
             products.push({
               key: key,
-              name: data.name,
+              title: data.title,
               id: data.id,
               picture: data.picture,
               price: data.price,
@@ -120,7 +119,6 @@ export function searchProduct(string) {
             });
           }
         });
-
         resolve(products);
       })
       .catch((error) => {
@@ -202,6 +200,38 @@ export function getProducts() {
   });
 }
 
+export function get4RelatedProducts(category, id) {
+  return new Promise(function (resolve, reject) {
+    let products = [];
+    let counter = 0;
+    firebase
+      .database()
+      .ref("/products")
+      .once("value")
+      .then((snapshot) => {
+        snapshot.forEach(function (childSnapshot) {
+          var key = childSnapshot.key;
+          var data = childSnapshot.val();
+          if ( counter < 4 && data.id != id && data.category.toLowerCase() === category.toLowerCase()  ){
+            counter++;
+          products.push({
+            key: key,
+            title: data.title,
+            id: data.id,
+            picture: data.picture,
+            price: data.price,
+            category: data.category,
+            description: data.description,
+          });}
+        });
+        resolve(products);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+}
+
 /**
  * Function to get all information of current User
  */
@@ -224,6 +254,26 @@ export async function GetCurrentUserInformation() {
   });
 }
 
+export function getAllUsers() {
+  let users = [];
+  return new Promise(function (resolve, reject) {
+    firebase
+    .database()
+    .ref(`/users`)
+    .once("value")
+    .then((snapshot) => {
+      snapshot.forEach(function (childSnapshot) {
+        var data = childSnapshot.val();
+        users.push(data);
+      });
+      resolve(users);
+    })
+    .catch((error) => {
+      reject(error);
+    });
+  })
+}
+
 /**
  * Function to edit user name and email
  */
@@ -234,6 +284,12 @@ export async function setCurrentUserInformation(user) {
     lastName: user.lastName,
     email: user.email,
   });
+}
+export async function deleteFirebaseUser(id){
+  firebase
+  .database()
+  .ref(`/users/user_${id}`)
+  .remove();
 }
 
 /**
