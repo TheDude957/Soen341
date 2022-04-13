@@ -2,7 +2,8 @@ import CartProduct from "./CartProduct";
 import { useEffect, useState } from "react";
 import { getProducts, GetCurrentUserCart } from "../firebaseService";
 import { Link } from "react-router-dom";
-import { Button } from "bootstrap";
+import { Button, Typography, Paper } from '@material-ui/core';
+import "../CSS/ProductCard.css";
 
 /*
 Cart of User
@@ -76,6 +77,9 @@ function Cart(props) {
   function visitorCart() {
     let prev = JSON.parse(localStorage.getItem('cart'));
     if (prev == null) prev = [];
+	if (prev.length == 0){
+		return (<h2>Your cart is Empty! Why don't you add to it.</h2>)
+	}
 
 		return prev.map((product) => {
 			return (
@@ -93,12 +97,22 @@ function Cart(props) {
 	}
 
 	return (
+		<>
+		
+		<Paper className = "title">
+			<Typography className = "header-title"> <b>Shopping Cart</b></Typography>
+
+			<Link  to="/purchasepage">
+			<Button  className = "btn" variant="outlined" color="primary"> <typography>Checkout</typography> </Button> 
+			</Link>
+		</Paper>
+			
 		<div className="products">
 			{props.user == "visitor" ? visitorCart() : loggedInUserCart()}
-			<Button to="/purchasepage">
-				<h1>Checkout</h1>
-			</Button>
+			
 		</div>
+		
+		</>
 	);
 }
 

@@ -52,6 +52,12 @@ function logout() {
     <Button className = "grid-item" variant="outlined" color="primary"> <typography>Add product</typography> </Button>
     </Link>
     : <span></span>}
+
+     {props.user !== undefined && props.user.userType == "Admin" ? 
+    <Link to="seeUsers">
+    <Button className = "grid-item" variant="outlined" color="primary"> <typography>See users</typography> </Button>
+    </Link>
+    : <span></span>}
   
     <Link to="editprofile">
     <Button className = "grid-item" variant="outlined" color="primary"> <typography>Edit Profile</typography> </Button> 

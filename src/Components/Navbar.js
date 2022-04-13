@@ -11,7 +11,7 @@ import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { Link } from "react-router-dom";
 import "../CSS/mainPage.css";
-import logo from "../Images/biggerLogo.png";
+import logo from "../Images/SiteLogo.PNG";
 
 /**
  * Style of the NavBar
@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
   logo: {
     flexGrow: "1",
     cursor: "pointer",
+    
   },
   title: {
     fontSize: "400px",
@@ -60,11 +61,11 @@ function Navbar(props) {
     <AppBar position="static">
       <CssBaseline />
       <Toolbar>
-        <Typography variant="h4" className={classes.logo}>
-          <img className="logo" src={logo} alt="Logo" />
-        </Typography>
+        
+          <img classNAme = "title" src={logo} alt="Logo" />
+        
         <Typography variant="h6" className={classes.logo}>
-          <h className="title">Group A Store</h>
+          <h className="title"></h>
         </Typography>
 
         <div className={classes.navlinks}>
