@@ -61,7 +61,7 @@ const LoginPage = (props) => {
         style={{ padding: 30, width: 500, margin: "100px auto" }}
       >
         <Grid align="center" style={{ paddingBottom: 30 }}>
-          <h2>Login</h2>
+          <h2 data-testid='page-title'>Login</h2>
         </Grid>
 
         <TextField
@@ -114,6 +114,7 @@ const LoginPage = (props) => {
         />
 
         <Button
+          data-testid='submit-btn'
           type="submit"
           color="primary"
           variant="contained"
