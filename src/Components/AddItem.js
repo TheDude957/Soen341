@@ -5,7 +5,7 @@ import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { addProduct } from "../firebaseService.js";
 /*
 This Component is used to add an item to firebae
-Returns a form 
+Returns a form s
 */
 const AddItem = () => {
   /*
