@@ -28,8 +28,9 @@ const AddItem = () => {
   const [imageError, setImageError] = useState(false);
 
   /*
-  Check if the form is completed before sanding the information of item to the database
+  Check if the form is completed before sanding the information of the item to the database
   */
+ 
   const formHandler = (e) => {
     e.preventDefault();
     title === "" ? setTitleError(true) : setTitleError(false);
